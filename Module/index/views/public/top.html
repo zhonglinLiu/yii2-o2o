@@ -1,0 +1,31 @@
+
+<body>
+<div class="header-bar">
+    <div class="header-inner">
+        <ul class="father">
+            <li><a>{$city}</a></li>
+            <li>|</li>
+            <li class="city">
+                <a>切换城市<span class="arrow-down-logo"></span></a>
+                <div class="city-drop-down">
+                    <h3>热门城市</h3>
+                    <ul class="son">
+                        {volist name='citys' id='v'}
+                        <li><a href="{:url('index/index',['cityName'=>$v.name,'city_id'=>$v.id])}">{$v.name}</a></li>
+                        {/volist}
+                    </ul>
+
+                </div>
+            </li>
+            <li> <a href="{:url('bis/login/index')}">商户中心</a> </li>
+            {if condition='$user neq ""' }
+            <li><a href="{:url('user/logout')}">退出登录</a></li>
+            <li>欢迎您,<a href="javascript:;" >{$user->username}</a></li>
+            {else/}
+            <li><a href="{:url('user/register')}">注册</a></li>
+
+            <li><a href="{:url('user/login')}">登录</a></li>
+            {/if}
+        </ul>
+    </div>
+</div>

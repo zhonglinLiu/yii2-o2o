@@ -1,0 +1,16 @@
+.o2o-pager{
+	padding-right: 20px;
+}
+.o2o-pager .pagination{
+    text-align: right;
+}
+.o2o-pager .pagination li{
+    display:inline-block;
+    padding-left:10px;
+}
+.o2o-pager .pagination .disabled{
+    color:#888888;
+}
+.o2o-pager .pagination .active{
+    color:red;
+}

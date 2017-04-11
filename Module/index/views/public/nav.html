@@ -1,0 +1,78 @@
+
+<body>
+    <div class="header-bar">
+        <div class="header-inner">
+            <ul class="father">
+                <li><a>{$city}</a></li>
+                <li>|</li>
+                <li class="city">
+                    <a>切换城市<span class="arrow-down-logo"></span></a>
+                    <div class="city-drop-down">
+                        <h3>热门城市</h3>
+                        <ul class="son">
+                            {volist name='citys' id='v'}
+                            <li><a href="{:url('index/index',['cityName'=>$v.name,'city_id'=>$v.id])}">{$v.name}</a></li>
+                            {/volist}
+                        </ul>
+                        
+                    </div>
+                </li>
+                <li> <a href="{:url('bis/login/index')}">商户中心</a> </li>
+                {if condition='$user neq ""' }
+                <li><a href="{:url('index/user/logout')}">退出登录</a></li>
+                <li>欢迎您,<a href="javascript:;" >{$user->username}</a></li>
+                {else/}
+                <li><a href="{:url('user/register')}">注册</a></li>
+
+                <li><a href="{:url('user/login')}">登录</a></li>
+                {/if}
+            </ul>
+        </div>
+    </div>
+
+    <div class="search">
+        <img src="/__STATIC__/index/image/logo.png" />
+        
+    </div>
+
+    <div class="nav-bar-header">
+        <div class="nav-inner">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <span class="item">全部分类</span>
+                    <div class="left-menu">
+                        {volist name="cates" id="cate"}
+                        <div class="level-item">
+                            <div class="first-level">
+                                <dl>
+                                    <dt class="title"><a href="{:url('lists/index',['id'=>$key])}" target="_blank">{$cate.name}</a></dt>
+                                    {volist name="cate['child']" id='v' length='2' }
+                                    <dd><a href="{:url('lists/index',['id'=>$v.id])}" target="_blank" class="">{$v.name}</a></dd>
+                                    {/volist}
+                                </dl>
+                            </div>
+                            <div class="second-level">
+                                <div class="section">
+                                    <div class="section-item clearfix no-top-border">
+                                        <h3>热门分类</h3>
+                                        <ul>
+                                            {volist name="cate['child']" id='v' }
+                                            <li><a target="_blank" href="{:url('lists/index',['id'=>$v.id])}" class="hot">{$v.name}</a></li>
+                                            {/volist}
+                                        </ul>
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+
+                    </div>
+                </li>
+                <li class="nav-item"><a class="item first active">首页</a></li>
+                <li class="nav-item"><a class="item">团购</a></li>
+                <li class="nav-item"><a class="item" >商户</a></li>
+            </ul>
+        </div>
+    </div>

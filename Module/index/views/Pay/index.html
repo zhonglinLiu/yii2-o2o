@@ -1,0 +1,19 @@
+{include file='public/header'}
+{include file='public/top'}
+
+<div style="margin: auto;width:200px;">
+    <p style="text-align: center; margin-top:20px; font-size:20px ;" >请扫描支付</p>
+    <img width="200" height="200" src="/upload/12.jpg"/>
+</div>
+</body>
+<script >
+    var time = 3000;
+    setInterval(function () {
+      if(time>=0){
+          time-=1000;
+      }else{
+          window.location.href='{:url("pay/notify",["deal_id"=>$deal_id,"out_trade_no"=>$out_trade_no])}';
+      }
+    },1000)
+</script>
+</html>
