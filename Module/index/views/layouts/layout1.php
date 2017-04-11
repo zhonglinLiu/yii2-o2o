@@ -42,7 +42,7 @@ use yii\helpers\Url;
 
                 </div>
             </li>
-            <li> <a href="<?php echo Url::to(['bis/login/index']) ?>">商户中心</a> </li>
+            <li> <a href="<?php echo Url::to(['/bis/login/index']) ?>">商户中心</a> </li>
             <?php if(isset(Yii::$app->session['user'])): ?>
             <li><a href="<?php echo Url::to(['user/logout']) ?>">退出登录</a></li>
             <li>欢迎您,<a href="javascript:;" >{$user->username}</a></li>
