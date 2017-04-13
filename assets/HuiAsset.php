@@ -42,7 +42,11 @@ class HuiAsset extends AssetBundle
          'js/uploadify/jquery.uploadify.js',
          'js/image.js',
          'js/dialog.js',
-         ['js/test.js','condition'=>'let IE9','position'=>\yii\web\View::POS_HEAD]
+         ['admin/hui/lib/html5.js','condition'=>'let IE9','position'=>\yii\web\View::POS_HEAD],
+         ['admin/hui/lib/respond.min.js','condition'=>'let IE9','position'=>\yii\web\View::POS_HEAD],
+         ['admin/hui/lib/PIE_IE678.js','condition'=>'let IE9','position'=>\yii\web\View::POS_HEAD],
+         ['http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js','condition'=>'let IE6','position'=>\yii\web\View::POS_HEAD],
+
     ]; 
     //依赖关系  
     public $depends = [  
@@ -50,9 +54,8 @@ class HuiAsset extends AssetBundle
     ];  
 
     public $jsOptions = [
-        'condition'=>'let IE9',
-        'position'=>\yii\web\View::POS_HEAD
-    ]
+        
+    ];
 
     /*public function registerAssetFiles($view){
         $release = '123';

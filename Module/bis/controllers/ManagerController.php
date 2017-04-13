@@ -9,15 +9,16 @@ use yii\helpers\Myhelper;
 class ManagerController extends CommonController{
 	public $layout = 'layout2';
 	public function beforeAction($action){
-		$user = Yii::$app->session->get('bis');
+		$user = Yii::$app->bis->identity;
 		if($user->is_main!=1){
-			return '无权访问';
+			echo '无权访问';
+			return false;
 		}
 		return true;
 	}
 	public function actionIndex(){
-		$user = Yii::$app->session->get('bis');
-		$count = BisAccount::find()->where(['<>','status',-1])->andWhere(['bis_id'=>$user->bis_id])->all();
+		$user = Yii::$app->bis->identity;
+		$count = BisAccount::find()->where(['<>','status',-1])->andWhere(['bis_id'=>$user->bis_id])->count();
 		$pageSize = Yii::$app->params['pageSize']['bis_account'];
 		$pager = new Pagination(['totalCount'=>$count,'pageSize'=>$pageSize]);
 		$account = BisAccount::find()->where('status<>-1 and bis_id='.$user->bis_id)->offset($pager->offset)->limit($pager->limit)->all();
@@ -39,7 +40,7 @@ class ManagerController extends CommonController{
 				$acountmodel->code = mt_rand(1000,9999);
 				$acountmodel->password = md5($data['password'].$acountmodel->code);
 				$acountmodel->status = 1;
-				$acountmodel->bis_id = Yii::$app->session->get('bis')->bis_id;
+				$acountmodel->bis_id = Yii::$app->bis->identity->bis_id;
 				if($acountmodel->save(false)){
 					return Myhelper::result(1,'添加成功');
 				}

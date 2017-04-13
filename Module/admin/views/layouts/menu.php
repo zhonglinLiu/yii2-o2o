@@ -72,7 +72,7 @@ use yii\helpers\Url;
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="" data-title="会员列表" href="javascript:;">会员列表</a></li>
+					<li><a _href="<?php echo Url::to(['user/index']) ?>" data-title="会员列表" href="javascript:;">会员列表</a></li>
 					<li><a _href="" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
 				
 				</ul>

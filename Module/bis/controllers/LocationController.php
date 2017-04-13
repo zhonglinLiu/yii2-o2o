@@ -10,9 +10,12 @@ use yii\helpers\Myhelper;
 use app\Module\bis\controllers\CommonController;
 class LocationController extends CommonController{
 	public $layout = 'layout2';
-     
+       protected $actions=[
+            'index','add'
+       ];
+     protected $except=[];
 	public function actionIndex(){
-		$user = Yii::$app->session->get('bis');
+		$user = Yii::$app->bis->identity;
 		$count = BisLocation::find()->where('status<>-1 and bis_id='.$user->bis_id)->count();
 		$pageSize = Yii::$app->params['pageSize']['bis_location'];
 		$pager = new Pagination(['totalCount'=>$count,'pageSize'=>$pageSize]);
@@ -33,7 +36,7 @@ class LocationController extends CommonController{
                   }
                   $post['xpoint'] = $rel->result->location->lat;
                   $post['ypoint'] = $rel->result->location->lng;
-                  $post['bis_id'] = Yii::$app->session->get('bis')->bis_id;
+                  $post['bis_id'] = Yii::$app->bis->identity->bis_id;
                   if(isset($post['se_city_id']) && $post['se_city_id']!=''){
                   	$post['city_path'] = $post['city_id'].','.$post['se_city_id'];
                   }

@@ -15,10 +15,12 @@ class index extends \yii\base\Module
     /**
      * @inheritdoc
      */
+    // public $defaultRoute = 'index';
     public function init()
     {
         parent::init();
         Yii::configure($this,require(__DIR__.'/config.php'));
+        
         // custom initialization code goes here
     }
 }

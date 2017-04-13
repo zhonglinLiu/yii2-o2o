@@ -2,6 +2,7 @@
 namespace app\controllers\common;
 use yii\web\Controller;
 use Yii;
+
 class BaseController extends Controller{
 	protected $userInfo;
 	protected $allowAction = [

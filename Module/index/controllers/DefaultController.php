@@ -35,7 +35,6 @@ class DefaultController extends Controller
         $car->run();*/
 
         //Yii::$app是一个服务定位器会加重web.php中的配置，把里面的配置注册成服务
-        echo Yii::getVersion();exit;
         Yii::$container->set('app\Module\index\controllers\driver','app\Module\index\controllers\manDriver');
         Yii::$app->car->run();
         return;

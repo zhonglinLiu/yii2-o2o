@@ -48,7 +48,8 @@ use app\common\components\statusWidget;
 	</div>
 </div>
 <div class="o2o-pager">
-	<?php echo LinkPager::widget(['pagination'=>$pager]) ?>
+	<?php echo LinkPager::widget(['pagination' => $pager]) ?>
 </div>
+
 <!--包含头部文件-->
 

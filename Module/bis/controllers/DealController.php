@@ -8,8 +8,12 @@ use app\models\Category;
 use app\models\Citys;
 use app\models\BisLocation;
 use yii\helpers\Myhelper;
-class DealController extends Controller{
+class DealController extends CommonController{
 	public $layout = 'layout2';
+	 protected $actions=[
+	 	'index','add'
+	 ];
+     protected $except=[];
 	public function actionIndex(){
 		$count = Deal::find()->where('status<>-1')->count();
 		$pageSize = Yii::$app->params['pageSize']['deal'];
@@ -20,7 +24,7 @@ class DealController extends Controller{
 
 	public function actionAdd(){
 		if(Yii::$app->request->isAjax){
-			$user = Yii::$app->session->get('bis');
+			$user = Yii::$app->bis->identity;
 			$data = Yii::$app->request->post();
 			if(isset($data['se_category_id'])){
 				$data['se_category_id'] = implode(',',$data['se_category_id']);
@@ -67,7 +71,7 @@ class DealController extends Controller{
 		}
 		$cityModel = new Citys;
         $cateModel = new Category;
-        $bis_id = Yii::$app->session->get('bis')->bis_id;
+        $bis_id = Yii::$app->bis->identity->bis_id;
         $citys = $cityModel->getTopCitys();
         $cates = $cateModel->getTopCates();
         $stores = BisLocation::find()->where('status=1 and bis_id='.$bis_id)->all();

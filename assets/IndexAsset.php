@@ -48,8 +48,7 @@ class IndexAsset extends AssetBundle
 
      public function registerAssetFiles($view){
         $release = '123';
-        $controller = Yii::$app->controller->action->id;
-       
+        $controller = Yii::$app->controller->id;
         $this->css = [
             'index/css/base.css',
             'index/css/common.css', 

@@ -18,6 +18,15 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'bis'=>[
+            'class'=>'\yii\web\User',
+            'identityClass'=>'\app\models\BisAccount',
+            'idParam'=>'__bis',
+            'identityCookie'=>['name'=>'__bis_identity','httpOnly'=>true],
+            'enableAutoLogin'=>true,
+            'loginUrl'=>'/bis/login/index',
+        ],
+       
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

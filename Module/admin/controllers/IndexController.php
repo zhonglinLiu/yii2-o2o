@@ -27,5 +27,7 @@ class IndexController extends Controller
     	return 'welcome to o2o';
     }
 
+   
+
     
 }

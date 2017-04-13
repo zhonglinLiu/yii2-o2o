@@ -3,12 +3,13 @@ namespace app\Module\index\controllers;
 use yii\web\Controller;
 use Yii;
 use app\models\Citys;
+use app\models\Category;
 class CommonController extends Controller{
 	public $city_id = null;
 	public $uname = '';
+	public $top = '';
 	public function beforeAction($action){
 		$city_id = Yii::$app->request->get('city_id');
-		
 
 		$this->view->params['title'] = $action->controller->id;
 		$rel = Citys::find()->asArray()->all();
@@ -31,11 +32,25 @@ class CommonController extends Controller{
 			$this->city_id = $city_id;
 			$this->view->params['uname'] = Yii::$app->request->get('uname');
 		}
+
+
+		$cateModel = new Category;
+		$this->top = $tops = $cateModel->getTopCates(5);
+		$cates = [];
+		$catesChild = [];
+		foreach ($tops as $k => $v) {
+			$cates[$v->id]=$v;
+			$catesChild[$v->id] = $v->getCatesByPid($v->id);
+		}
+
+		$this->view->params['cates'] = $cates;
+		$this->view->params['catesChild'] = $catesChild;
+
 		$this->view->params['citys'] = $citys;
 		$this->view->params['cityChilds'] = $cityChilds;
 
 		return true;
 	}
-
 	
+
 }

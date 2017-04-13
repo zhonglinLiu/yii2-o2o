@@ -11,6 +11,8 @@ return [
         'bis_account'=>3,
         'deal'=>3,
         'featured'=>3,
+        'user'=>3,
+        'lists'=>10,
     ],
     'map' =>[
     	'url'=> 'http://api.map.baidu.com/',
