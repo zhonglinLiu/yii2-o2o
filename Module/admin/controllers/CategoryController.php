@@ -7,6 +7,10 @@ use app\Module\admin\controllers\CommonController;
 use Yii;
 class CategoryController extends CommonController{
 	public $layout = 'layout2';
+	protected $actions=[
+		'index','add','edit','order'
+	];
+     protected $except=[];
 	public function actionIndex(){
 		$pid = Yii::$app->request->get('parent_id');
 		if(empty($pid)){

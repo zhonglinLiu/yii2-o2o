@@ -7,6 +7,10 @@ use app\Module\admin\controllers\CommonController;
 use Yii;
 class CitysController extends CommonController{
 	public $layout = 'layout2';
+	protected $actions=[
+		'index','add','edit'
+	];
+     protected $except=[];
 	public function actionIndex(){
 		$id = Yii::$app->request->get('parent_id');
 		if(is_null($id)){

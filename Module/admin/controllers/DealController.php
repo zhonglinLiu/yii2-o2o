@@ -9,6 +9,10 @@ use app\models\Category;
 use app\models\Citys;
 class DealController extends CommonController{
 	public $layout = 'layout2';
+	protected $actions=[
+		'index'
+	];
+     protected $except=[];
 	public function actionIndex(){
 		$status = Yii::$app->request->get('status');
 		$count = Deal::find()->where(['status'=>$status])->count();

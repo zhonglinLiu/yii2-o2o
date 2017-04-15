@@ -9,8 +9,12 @@ use app\models\Citys;
 use app\models\Category;
 use app\models\BisAccount;
 use yii\helpers\Myhelper;
-class BisController extends Controller{
+class BisController extends CommonController{
 	public $layout = 'layout2';
+	protected $actions=[
+		'index','detail','status'
+	];
+    protected $except=[];
 	public function actionIndex(){
 		$status = Yii::$app->request->get('status');
 		$count = Bis::find()->where('status='.$status)->count();

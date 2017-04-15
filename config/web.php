@@ -26,6 +26,14 @@ $config = [
             'enableAutoLogin'=>true,
             'loginUrl'=>'/bis/login/index',
         ],
+        'admin'=>[
+            'class'=>'\yii\web\User',
+            'identityClass'=>'\app\Module\admin\models\Admin',
+            'idParam'=>'__admin',
+            'identityCookie'=>['name'=>'__admin_identity','httpOnly'=>true],
+            'enableAutoLogin'=>true,
+            'loginUrl'=>'/admin/login/index',
+        ],
        
         'errorHandler' => [
             'errorAction' => 'site/error',

@@ -7,6 +7,10 @@ use Yii;
 use app\Module\admin\controllers\CommonController;
 class BisLocationController extends CommonController{
 	public $layout = 'layout2';
+	protected $actions=[
+		'index','detail'
+	];
+     protected $except=[];
 	public function actionIndex(){
 		$status = Yii::$app->request->get('status');
 		$count = BisLocation::find()->where(['status'=>$status])->count();

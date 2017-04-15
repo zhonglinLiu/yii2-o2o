@@ -15,7 +15,7 @@ class index extends \yii\base\Module
     /**
      * @inheritdoc
      */
-    // public $defaultRoute = 'index';
+    public $defaultRoute = 'index';
     public function init()
     {
         parent::init();

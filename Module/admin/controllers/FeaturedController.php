@@ -5,8 +5,12 @@ use app\models\Featured;
 use yii\data\Pagination;
 use Yii;
 use yii\helpers\Myhelper;
-class FeaturedController extends Controller{
+class FeaturedController extends CommonController{
 	public $layout = 'layout2';
+	protected $actions=[
+		'index','add'
+	];
+     protected $except=[];
 	public function actionIndex(){
 		$data = Yii::$app->request->post();
 		$where = '';
