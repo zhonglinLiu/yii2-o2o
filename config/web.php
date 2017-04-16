@@ -14,6 +14,14 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager'=>[
+            'class'=>'yii\rbac\DbManager',
+            'itemTable' =>'{{%auth_item}}', //权限角色表
+            'itemChildTable'=>'{{%auth_item_child}}',//角色与权限的关系，角色与角色的关系
+            'assignmentTable'=>'{{%auth_assignment}}', //用户与角色的关系
+            'ruleTable'=>'{{%auth_rule}}', //额外规则
+            'defaultRoles' =>['default'], //默认角色
+        ]
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
@@ -32,7 +40,7 @@ $config = [
             'idParam'=>'__admin',
             'identityCookie'=>['name'=>'__admin_identity','httpOnly'=>true],
             'enableAutoLogin'=>true,
-            'loginUrl'=>'/admin/login/index',
+            'loginUrl'=>'/admin/admin/login',
         ],
        
         'errorHandler' => [

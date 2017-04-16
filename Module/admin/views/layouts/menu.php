@@ -82,7 +82,7 @@ use yii\helpers\Url;
 			<dt><i class="Hui-iconfont">&#xe620;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a _href="" data-title="订单列表" href="javascript:void(0)">订单列表</a></li>
+					<li><a _href="<?php echo Url::to(['order/index']) ?>" data-title="订单列表" href="javascript:void(0)">订单列表</a></li>
 					<li><a _href="" data-title="删除的订单" href="javascript:void(0)">删除的订单</a></li>
 					
 				</ul>

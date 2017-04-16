@@ -29,4 +29,22 @@ class statusWidget extends Widget{
 				break;
 		}
 	}
+
+	public function payStatus($status){
+		if($status==0){
+        	return '<span class="label label-warning radius" >待支付</span>';
+	    }
+	    if($status==1){
+	        return '<span class="label label-info radius" >支付成功</span>';
+	    }
+	    if($status==2){
+	        return '<span class="label label-danger radius" >支付失败</span>';
+	    }
+	    if($status==3){
+	        return '<span class="label label-info radius" >已发货</span>';
+	    }
+	    if($status==4){
+	        return '<span class="label label-success radius" >已收货</span>';
+	    }
+	}
 }

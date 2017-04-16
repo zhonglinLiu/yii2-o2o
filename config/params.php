@@ -13,6 +13,7 @@ return [
         'featured'=>3,
         'user'=>3,
         'lists'=>10,
+        'order'=>3,
     ],
     'map' =>[
     	'url'=> 'http://api.map.baidu.com/',
