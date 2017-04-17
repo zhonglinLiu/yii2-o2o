@@ -179,9 +179,9 @@ use yii\helpers\Html;
 </article>
 
 <?php $this->beginBlock('viewJs'); ?>
-<script type="text/javascript" src="/assets/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="/assets/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="/assets/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script>
 $(function(){
 	var ue = UE.getEditor('editor');

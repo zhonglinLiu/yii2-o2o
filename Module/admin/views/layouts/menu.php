@@ -88,6 +88,19 @@ use yii\helpers\Url;
 				</ul>
 			</dd>
 		</dl>
+
+		<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe620;</i> 权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a _href="<?php echo Url::to(['rbac/addrole']) ?>" data-title="添加角色" href="javascript:void(0)">添加角色</a></li>
+					<li><a _href="<?php echo Url::to(['rbac/roles']) ?>" data-title="角色列表" href="javascript:void(0)">角色列表</a></li>
+					<li><a _href="<?php echo Url::to(['rbac/permissions']) ?>" data-title="权限列表" href="javascript:void(0)">权限列表</a></li>
+					<li><a _href="<?php echo Url::to(['rbac/admins']) ?>" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+					
+				</ul>
+			</dd>
+		</dl>
 		
 	</div>
 </aside>

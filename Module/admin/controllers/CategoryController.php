@@ -33,11 +33,17 @@ class CategoryController extends CommonController{
 			$model->parent_id = intval($post['parent_id']);
 			$model->name = $post['name'];
 			$model->status = 1;
-			if($model->save()){
-				Yii::$app->session->setFlash('info','添加成功');
+			$model->scenario = 'add';
+			if($model->validate()){
+				if($model->save()){
+					Yii::$app->session->setFlash('info','添加成功');
+				}else{
+					Yii::$app->session->setFlash('info','添加失败');
+				}
 			}else{
 				Yii::$app->session->setFlash('info','添加失败');
 			}
+			
 		}
 		$cates = $model->getTopCates();
 		return $this->render('add',['cates'=>$cates]);

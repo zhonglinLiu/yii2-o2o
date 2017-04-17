@@ -149,13 +149,13 @@ use yii\helpers\Url;
 </article>
 <script>
 /**定义页面全局变量**/
-
 </script>
 <!--包含头部文件-->
+
 <?php $this->beginBlock('viewJs'); ?>
-<script type="text/javascript" src="/assets/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="/assets/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="/assets/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script>
 $(function(){
 	var ue = UE.getEditor('editor');

@@ -2,6 +2,7 @@
 use app\assets\HuiAsset;
 HuiAsset::register($this);
 // Yii::$app->getView()->registerJs('路径','依赖');
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE HTML>
@@ -47,5 +48,10 @@ HuiAsset::register($this);
 <?php endif; ?>
 
 </body>
+<?php 
+
+$this->registerJsFile('/js/uploadify/jquery.uploadify.js');
+$this->registerJsFile('/js/image.js');
+?>
 </html>
 <?php $this->endPage() ?>

@@ -6,6 +6,14 @@ class Category extends ActiveRecord{
 	public static function tableName(){
 		return "{{%category}}";
 	}
+	public function rules(){
+		return [
+			['name','required','message'=>'名称不能为空','on'=>['add']],
+			['parent_id','required','message'=>'参数非法','on'=>['add']],
+			['parent_id','number','message'=>'参数非法','on'=>['add']],
+			[['status'],'safe']
+		];
+	}
 	public function getTopCates($limit=null){
 		$data = [
 			'status'=>1,

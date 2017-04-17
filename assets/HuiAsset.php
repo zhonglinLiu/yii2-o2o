@@ -20,7 +20,7 @@ class HuiAsset extends AssetBundle
     //全局CSS  
     public $css = [  
         '/admin/hui/static/h-ui/css/H-ui.min.css',
-        'admin/hui/static/h-ui.admin/css/H-ui.admin.css',
+        '/admin/hui/static/h-ui.admin/css/H-ui.admin.css',
         'admin/hui/lib/Hui-iconfont/1.0.7/iconfont.css',
         'admin/hui/lib/icheck/icheck.css',
         ['admin/hui/static/h-ui.admin/skin/default/skin.css','id'=>'skin'],
@@ -39,8 +39,8 @@ class HuiAsset extends AssetBundle
          'admin/hui/static/h-ui/js/H-ui.js',
          'admin/hui/static/h-ui.admin/js/H-ui.admin.js',
          'js/common.js',
-         'js/uploadify/jquery.uploadify.js',
-         'js/image.js',
+         /*'js/uploadify/jquery.uploadify.js',
+         'js/image.js',*/
          'js/dialog.js',
          ['admin/hui/lib/html5.js','condition'=>'let IE9','position'=>\yii\web\View::POS_HEAD],
          ['admin/hui/lib/respond.min.js','condition'=>'let IE9','position'=>\yii\web\View::POS_HEAD],
@@ -49,9 +49,10 @@ class HuiAsset extends AssetBundle
 
     ]; 
     //依赖关系  
-    public $depends = [  
-       
-    ];  
+    public $depends = [
+        // 'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ]; 
 
     public $jsOptions = [
         
@@ -71,12 +72,12 @@ class HuiAsset extends AssetBundle
   
      //定义按需加载JS方法，注意加载顺序在最后  
     public static function addScript($view, $jsfile) {  
-        $view->registerJsFile($jsfile, [AppAsset::className(), 'depends' => 'app\assets\HuiAsset']);  
+        $view->registerJsFile($jsfile, [AppAsset::className(), 'depends' => '']);  
     }  
       
    //定义按需加载css方法，注意加载顺序在最后  
     public static function addCss($view, $cssfile) {  
-        $view->registerCssFile($cssfile, [AppAsset::className(), 'depends' => 'app\assets\HuiAsset']);  
+        $view->registerCssFile($cssfile, [AppAsset::className(), 'depends' => '']);  
     }  
  }
    
