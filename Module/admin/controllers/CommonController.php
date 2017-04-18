@@ -32,6 +32,23 @@ class CommonController extends Controller{
 			]
 		];
 	}
+
+	public function beforeAction($action){
+		$allow = ['admin/logout','admin/login'];
+		$controller = $action->controller->id;
+		$act = strtolower(implode('',explode('-',$action->id)));
+		if(in_array($controller.'/'.$act,$allow)){
+			return true;
+		}
+		if(Yii::$app->admin->can($controller.'/*')){
+			return true;
+		}
+		if(Yii::$app->admin->can($controller.'/'.$act)){
+			return true;
+		}
+		echo '您无权访问，请联系超级管理员授权';
+		return false;
+	}
 	public function actionStatus(){
 		$data = Yii::$app->request->get();
 		$model = preg_replace_callback('/(-[a-zA-Z])/', function($matches){

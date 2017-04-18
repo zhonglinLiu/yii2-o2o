@@ -202,6 +202,7 @@ $('#liu-submit2').click(function () {
 					pos+=50;
 					dialog.showMsg(d.data[k][0],{offset:pos+'px'});
 				}
+				return true;
 			}else{
 				dialog.error(d.data);
 			}
