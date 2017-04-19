@@ -22,6 +22,7 @@ class IndexController extends CommonController
     protected $except=[];
     public function actionIndex()
     {
+        
         return $this->render('index');
     }
     public function actionWelcome(){

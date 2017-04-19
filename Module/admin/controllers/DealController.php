@@ -10,7 +10,7 @@ use app\models\Citys;
 class DealController extends CommonController{
 	public $layout = 'layout2';
 	protected $actions=[
-		'index'
+		'index','detail'
 	];
      protected $except=[];
 	public function actionIndex(){
@@ -24,6 +24,10 @@ class DealController extends CommonController{
 		$citys = $citymodel->getTopCitys();
 		$cates = $catemodel->getTopCates();
 		return $this->render('index',['pager'=>$pager,'deals'=>$deals,'cates'=>$cates,'citys'=>$citys]);
+	}
+
+	public function actionDetail(){
+		return '待开发...';
 	}
 
 

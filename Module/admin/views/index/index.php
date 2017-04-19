@@ -1,6 +1,7 @@
 ﻿<!--包含头部文件-->
 <?php
 use yii\helpers\Url;
+$manager = Yii::$app->authManager->getRolesByUser(Yii::$app->admin->id);
 ?>
 <body>
 <header class="navbar-wrapper">
@@ -9,8 +10,8 @@ use yii\helpers\Url;
 			
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li>超级管理员</li>
-					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<li><?php echo current($manager)->description ?></li>
+					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A"><?php echo Yii::$app->admin->getIdentity()->username ?> <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							<li><a href="#">个人信息</a></li>
 							<li><a href="#">切换账户</a></li>
