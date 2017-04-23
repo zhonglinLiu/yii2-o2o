@@ -15,7 +15,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'authManager'=>[
-             'class'=>'yii\rbac\DbManager', 
+            'class'=>'yii\rbac\DbManager', 
             'itemTable' =>'{{%auth_item}}', //权限角色表
             'itemChildTable'=>'{{%auth_item_child}}',//角色与权限的关系，角色与角色的关系
             'assignmentTable'=>'{{%auth_assignment}}', //用户与角色的关系

@@ -16,7 +16,9 @@ class CategoryController extends CommonController{
 		if(empty($pid)){
 			$pid = 0;
 		}
-		$count = Category::find()->where('status<>-1 and parent_id='.$pid)->orderby('listorder desc')->count();
+		$connection = Yii::$app->db;
+		$count = $connection->createCommand('select count(*) from {{%category}} where status<>-1 and parent_id='.$pid)->queryOne();
+		$count = current($count);
 		$pageSize = Yii::$app->params['pageSize']['category'];
 		$pager = new Pagination(['totalCount'=>$count,'pageSize'=>$pageSize]);
 		$cates = Category::find()->where('status<>-1 and parent_id='.$pid)->orderby('listorder desc')->limit($pager->limit)->offset($pager->offset)->all();

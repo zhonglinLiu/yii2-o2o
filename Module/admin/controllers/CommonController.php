@@ -34,6 +34,9 @@ class CommonController extends Controller{
 	}
 
 	public function beforeAction($action){
+		if(!parent::beforeAction($action)){
+			return false;
+		}
 		$allow = ['admin/logout','admin/login'];
 		$controller = $action->controller->id;
 		$act = strtolower(implode('',explode('-',$action->id)));
