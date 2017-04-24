@@ -69,8 +69,27 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                
+                /*[
+                 'class' => 'yii\log\EmailTarget',  //发邮件时会阻塞页面
+                 'mailer' => 'mailer',
+                 'levels' => ['error', 'warning'],
+                 'message' => [
+                     'from' => ['17739650739@163.com'],
+                     'to' => ['742253912@qq.com', '7422....2@qq.com'],
+                     'subject' => 'Log message',
+                    ],
+                ],*/
+                 [
+                    'class' => 'mito\sentry\Target',
+                    'levels' => ['error', 'warning'],
+                    'except' => [
+                        'yii\web\HttpException:404',
+                    ],
+                ],
             ],
         ],
+        
         
         'db' => require(__DIR__ . '/db.php'),
         
@@ -81,7 +100,18 @@ $config = [
                 
             ],
         ],
-        
+        'sentry' => [
+            'class' => 'mito\sentry\Component',
+            'dsn' => 'https://0a87a5d26b6c48cdbf128602ae7b621a:06fa32b4dec94b1f8d24c5c1b5f5d414@sentry.io/161038', // private DSN
+            'publicDsn'=>'https://0a87a5d26b6c48cdbf128602ae7b621a@sentry.io/161038',
+            'environment' => 'staging', // if not set, the default is `production`
+            'jsNotifier' => false, // to collect JS errors. Default value is `false`
+            'jsOptions' => [ // raven-js config parameter
+                'whitelistUrls' => [ // collect JS errors from these urls
+                    
+                ],
+            ],
+        ],
        'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => 'localhost',
