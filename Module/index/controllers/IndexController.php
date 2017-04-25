@@ -17,6 +17,7 @@ class IndexController extends CommonController{
 			$cates[$k]=$v;
 			$catesChild[$k] = $v->getCatesByPid($v->id);
 		}*/
+		// Yii::error('message');
 		$Featured = new Featured();
 		$dealmodel = new Deal;
 		$dealid = Yii::$app->params['deal'];

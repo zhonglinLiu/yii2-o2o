@@ -4,6 +4,9 @@ use yii\helpers\Url;
 <?php $this->beginBlock('viewCss') ?>
 <link rel="stylesheet" href="/index/css/login.css" />
 <?php $this->endBlock() ?>
+<style type="text/css">
+    #liu-submit2{margin-left: 0;width:280px;}
+</style>
     <div class="wrapper">
         <div class="head">
             <ul>
@@ -40,8 +43,6 @@ use yii\helpers\Url;
                             <div class="commonLogin check_form">
                                 <p class="pass-form-item ">
                                     <input type="button" id="liu-submit2" value="登录" class="pass-button">
-                                    
-                                    
                                 </p>
                             </div>
                         </form>

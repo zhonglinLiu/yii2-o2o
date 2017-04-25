@@ -101,7 +101,7 @@ $('#showposition').click(function () {
 			dialog.error(d.data);
 			that.val('');
 		}else{
-			var dom = $("<img src='"+SCOPE.showmap+'&position='+data.position+"' width='300' height='180' />");
+			var dom = $("<img src='"+SCOPE.showmap+'?position='+data.position+"' width='300' height='180' />");
 			$('#showmap').html(dom);
 		}
     },'json')

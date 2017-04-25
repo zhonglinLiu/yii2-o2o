@@ -2,6 +2,9 @@
 namespace app\Module\api\controllers;
 use yii\web\Controller;
 use Yii;
+use app\common\helpers\map;
+
+use yii\web\Response;
 class BisAccountController extends Controller{
 	public function beforeAction($current)
     {
@@ -15,23 +18,23 @@ class BisAccountController extends Controller{
        return true;
     }    
 	public function actionShowposition(){
+		Yii::$app->response->format = Response::FORMAT_JSON;
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
 			$position = $post['position'];
-			$rel = \yii\helpers\Myhelper::getCoorByAddress($position);
+			$rel = map::getCoorByAddress($position);
 			$rel = json_decode($rel);
 			if($rel->status!=0){
-				return \yii\helpers\Myhelper::result(-1,'地址有误');
+				return ['code'=>-1,'data'=>'地址有误'];
 			}
 			if(!empty($rel->result) && $rel->result->precise!=1){
-				return \yii\helpers\Myhelper::result(-1,'请填写详细地址');
+				return ['code'=>-1,'data'=>'请填写详细地址'];
 			}
-			return \yii\helpers\Myhelper::result(1,'ok');
+			return ['code'=>1,'data'=>'ok'];
 			
 		}
 	}
-	public function actionShowmap(){
-		$position = Yii::$app->request->get('position');
-		return \yii\helpers\Myhelper::getStaticImg($position);
+	public function actionShowmap($position){
+		return map::getStaticImg($position);
 	}
 }

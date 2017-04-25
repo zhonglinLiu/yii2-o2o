@@ -12,7 +12,12 @@ $config = [
             'cookieValidationKey' => '123456',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
+            'redis'=>[
+                'hostname'=>'localhost',
+                'port'=> 6379,
+                'database'=>2,
+            ]
         ],
         'authManager'=>[
             'class'=>'yii\rbac\DbManager', 
@@ -68,6 +73,7 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'logVars' => [],
                 ],
                 
                 /*[
@@ -80,27 +86,16 @@ $config = [
                      'subject' => 'Log message',
                     ],
                 ],*/
-                 [
+                /* [
                     'class' => 'mito\sentry\Target',
                     'levels' => ['error', 'warning'],
                     'except' => [
                         'yii\web\HttpException:404',
                     ],
-                ],
+                ],*/
             ],
         ],
-        
-        
-        'db' => require(__DIR__ . '/db.php'),
-        
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                
-            ],
-        ],
-        'sentry' => [
+       /* 'sentry' => [
             'class' => 'mito\sentry\Component',
             'dsn' => 'https://0a87a5d26b6c48cdbf128602ae7b621a:06fa32b4dec94b1f8d24c5c1b5f5d414@sentry.io/161038', // private DSN
             'publicDsn'=>'https://0a87a5d26b6c48cdbf128602ae7b621a@sentry.io/161038',
@@ -111,7 +106,18 @@ $config = [
                     
                 ],
             ],
+        ],*/
+        
+        'db' => require(__DIR__ . '/db.php'),
+        
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                
+            ],
         ],
+        
        'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => 'localhost',

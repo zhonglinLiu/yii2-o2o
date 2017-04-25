@@ -13,7 +13,12 @@ use yii\helpers\Url;
                 <li class="nav-item">
                     <span class="item">全部分类</span>
                     <div class="left-menu">
+                        <?php $i=0; ?>
                         <?php foreach($this->params['cates'] as $k => $cate): ?>
+                            <?php 
+                                $i++;
+                                if($i>5) break;
+                            ?>
                         <div class="level-item">
                             <div class="first-level">
                                 <dl>
@@ -44,7 +49,12 @@ use yii\helpers\Url;
                     </div>
                 </li>
                 <li class="nav-item"><a class="item first active">首页</a></li>
+                <?php $i=0; ?>
                 <?php foreach($this->params['cates'] as $k => $cate): ?>
+                    <?php 
+                        $i++;
+                        if($i>5) break;
+                    ?>
                 <li class="nav-item"><a href="javascript;" class="item"><?=$cate->name?></a></li>
                 <?php endforeach; ?>
                 <!-- <li class="nav-item"><a class="item" >商户</a></li> -->

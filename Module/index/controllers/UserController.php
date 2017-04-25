@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\Myhelper;
 use app\Module\index\controllers\CommonController;
 use yii\captcha\CaptchaAction;
+use yii\web\Response;
 class UserController extends CommonController{
 	public $layout='layout1';
 	public function actions()
@@ -29,14 +30,15 @@ class UserController extends CommonController{
 
 	public function actionLogin(){
 		if(Yii::$app->request->isPost){
+			Yii::$app->response->format = Response::FORMAT_JSON;
 			$data = Yii::$app->request->post();
 			$model = new User;
 			$model->scenario = 'login';
 			$model->setAttributes($data);
 			if($model->validate()){
-				return Myhelper::result(1,'登录成功');
+				return ['code'=>1,'data'=>'登录成功'];
 			}else{
-				return Myhelper::result(-1,$model->getErrors());
+				return ['code'=>-1,'data'=>$model->getErrors()];
 			}
 		}
 		return $this->render('login');

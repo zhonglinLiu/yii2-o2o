@@ -19,7 +19,7 @@ class RegisterController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    public $layout = 'layout1';
+    public $layout = 'layout2';
     public function actionIndex()
     {
         if(Yii::$app->request->isPost){

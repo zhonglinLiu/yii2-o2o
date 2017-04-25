@@ -33,15 +33,31 @@ class CommonController extends Controller{
 			$this->view->params['uname'] = Yii::$app->request->get('uname');
 		}
 
-
-		$cateModel = new Category;
-		$this->top = $tops = $cateModel->getTopCates(5);
-		$cates = [];
-		$catesChild = [];
-		foreach ($tops as $k => $v) {
-			$cates[$v->id]=$v;
-			$catesChild[$v->id] = $v->getCatesByPid($v->id);
+		$cache = Yii::$app->cache;
+		$cateskey= 'cates';
+		$catesChildkey = 'catesChild';
+		$topcateKey = 'topCate';
+		if(!$cache->get($topcateKey)){
+			$cateModel = new Category;
+			$this->top = $tops = $cateModel->getTopCates();
+			$cache->set($topcateKey,$tops,3600);
+		}else{
+			$this->top = $cache->get($topcateKey);
 		}
+		if(!$cache->get($cateskey) || !$cache->get($catesChildkey)){
+			$cates = [];
+			$catesChild = [];
+			foreach ($this->top as $k => $v) {
+				$cates[$v->id]=$v;
+				$catesChild[$v->id] = $v->getCatesByPid($v->id);
+			}
+			$cache->set($cateskey,$cates,3600);
+			$cache->set($catesChildkey,$catesChild,3600);
+		}else{
+			$cates = $cache->get($cateskey);
+			$catesChild = $cache->get($catesChildkey);
+		}
+		
 
 		$this->view->params['cates'] = $cates;
 		$this->view->params['catesChild'] = $catesChild;

@@ -43,7 +43,7 @@ use app\common\helpers\common
                                 <?php foreach($this->params['catesChild'][$k] as $v2): ?>
                                 <li><a href="<?php echo Url::to(['lists/index','cid'=>$v2['id']]) ?>" target="_blank"><?php echo $v2['name'] ?></a></li>
                                 <?php endforeach;?>
-                                <li><a class="no-right-border no-right-padding" href="<?php echo Url::to(['lists/index','cid'=>$v['id']]) ?>" target="_blank">全部<span class="all-cate-arrow"></span></a></li>
+                                <li><a class="no-right-border no-right-padding" href="<?php echo Url::to(['lists/index','id'=>$v['id']]) ?>" target="_blank">全部<span class="all-cate-arrow"></span></a></li>
                             </ul>
                         </div>
                         <ul class="itemlist eight-row-height">

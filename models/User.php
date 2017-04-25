@@ -2,7 +2,8 @@
 namespace app\models;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
-class User extends ActiveRecord{
+use Yii;
+class User extends ActiveRecord implements \yii\web\IdentityInterface{
     public $verifyCode;
     public $repass;
     public static function tableName(){
@@ -60,5 +61,20 @@ class User extends ActiveRecord{
         ];
     }
 
+    public static function findIdentity($id){
+        return static::findOne($id);
+    }
+    public static function findIdentityByAccessToken($token, $type = null){
+
+    }
+    public function getId(){
+        return $this->id;
+    }
+     public function getAuthKey(){
+
+     }
+     public function validateAuthKey($authKey){
+        
+     }
    
 }
