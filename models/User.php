@@ -48,7 +48,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface{
             if($user->password!=md5($this->password.$user->code)){
                 return $this->addError('username','用户名或密码错误');
             }
-            Yii::$app->session['user'] = $user;
+            Yii::$app->user->login($user,3600);
             return;
         }
            

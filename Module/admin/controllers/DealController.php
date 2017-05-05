@@ -12,7 +12,7 @@ class DealController extends CommonController{
 	protected $actions=[
 		'index','detail'
 	];
-     protected $except=[];
+    protected $except=[];
 	public function actionIndex(){
 		$status = Yii::$app->request->get('status');
 		$count = Deal::find()->where(['status'=>$status])->count();

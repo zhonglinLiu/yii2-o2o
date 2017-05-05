@@ -2,6 +2,7 @@
 <?php
 use yii\helpers\Url;
 $manager = Yii::$app->authManager->getRolesByUser(Yii::$app->admin->id);
+
 ?>
 <body>
 <header class="navbar-wrapper">

@@ -8,7 +8,8 @@ use app\models\BisLocation;
 use app\models\Citys;
 use app\models\Category;
 use app\models\BisAccount;
-use yii\helpers\Myhelper;
+use app\common\helpers\common;
+
 class BisController extends CommonController{
 	public $layout = 'layout2';
 	protected $actions=[
@@ -82,7 +83,7 @@ class BisController extends CommonController{
 			}
 			$url = Yii::$app->request->hostInfo.'/'.'index.php?r=bis/login/index';
             $msg = '您的申请已经通过<br><a href="'.$url.'" >点我登录</a>';
-            $rel = Myhelper::setEmail($bis->email,'xx商城注册',$msg);
+            $rel = common::sendEmail($bis->email,'xx商城注册',$msg);
             if($rel==false){
                 throw new \Exception(json_encode('邮件发送失败'), 1);
             }

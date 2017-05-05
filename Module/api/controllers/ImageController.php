@@ -2,6 +2,7 @@
 namespace app\Module\api\controllers;
 use yii\web\Controller;
 use yii\web\UploadedFile;
+use yii\web\Response;
 class ImageController extends Controller{
 	public function beforeAction($current){
 		$action = [
@@ -14,8 +15,7 @@ class ImageController extends Controller{
 		return true;
 	}
 	public function actionUploadImage(){
-		/*$file = UploadedFile::getInstanceByFileName('imgFile');
-		$path = 'upload/'.date('Y').'/'.date('m').'/'.date('d').'/'.$file->name;*/
+		Yii::$app->response->format = Response::FORMAT_JSON;
 		$upload = new UploadedFile();
 		$file = $upload::getInstanceByName('imgFile');
 		$path = 'upload/'.date('Y').'/'.date('m').'/'.date('d');
@@ -24,7 +24,7 @@ class ImageController extends Controller{
 		}
 		$filename = time().mt_rand(1000,9999).$file->getExtension();
 		$file->saveAs($path.'/'.$filename);
-		return \yii\helpers\Myhelper::result(1,$path.'/'.$filename);
+		return ['code'=>1,'data'=>$path.'/'.$filename];
 		// print_r($file);
 	}
 }

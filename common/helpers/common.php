@@ -1,5 +1,6 @@
 <?php 
 namespace app\common\helpers;
+use Yii;
 class common{
 	public static function showLocations($location_ids){
 		if(preg_match('/,/', $location_ids)){
@@ -17,4 +18,15 @@ class common{
 		curl_close($ch);
 		return $rel;
 	}
+
+	public static function sendEmail($email,$sub,$msg){
+		$mail = Yii::$app->mailer->compose();
+		$mail->setFrom('17739650739@163.com')
+		->setTo($email)
+		->setSubject($sub)
+		->setHtmlBody($msg)
+		->send();
+	}
+
+
 }

@@ -54,15 +54,21 @@ class UserController extends CommonController{
 				$model->code = mt_rand(1000,9999);
 				$model->password = md5($model->password.$model->code);
 				if($model->save(false)){
-					return Myhelper::result(1,'注册成功');
+					return ['code'=>1,'data'=>'注册成功'];
 				}else{
-					return Myhelper::result(-1,'注册失败');
+					return ['code'=>-1,'data'=>'注册失败'];
+
 				}
 			}else{
-				return Myhelper::result(-1,$model->getErrors());
+				return ['code'=>-1,'data'=>$models->getErrors()];
 			}
 
 		}
 		return $this->render('register');
+	}
+
+	public function actionLogout(){
+		Yii::$app->user->logout(false);
+		return $this->redirect('user/login');
 	}
 }

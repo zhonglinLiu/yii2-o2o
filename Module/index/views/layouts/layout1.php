@@ -43,9 +43,18 @@ use yii\helpers\Url;
                 </div>
             </li>
             <li> <a href="<?php echo Url::to(['/bis/login/index']) ?>">商户中心</a> </li>
-            <?php if(isset(Yii::$app->session['user']) && $user = Yii::$app->session['user'] ): ?>
-            <li><a href="<?php echo Url::to(['user/logout']) ?>">退出登录</a></li>
-            <li>欢迎您,<a href="javascript:;" ><?php echo $user->username ?></a></li>
+            <?php if(isset(Yii::$app->user->isGuest) && $user = Yii::$app->user->identity ): ?>
+            <li><a href="<?php echo Url::to(['/index/user/logout']) ?>">退出登录</a></li>
+            <li class="city" >
+                欢迎您,<a href="javascript:;" ><?php echo $user->username ?><span class="arrow-down-logo"></span></a>
+                <div class="city-drop-down">
+                    <ul class="son">
+                        <li><a href="#">用户中心</a></li>
+                        <li><a href="#">订单中心</a></li>
+                    </ul>
+                </div>
+
+            </li>
             <?php else: ?>
             <li><a href="<?php echo Url::to(['user/register']) ?>">注册</a></li>
 

@@ -3,6 +3,7 @@ namespace app\Module\api\controllers;
 use yii\web\Controller;
 use Yii;
 use app\models\Citys;
+use yii\web\Response;
 class CitysController extends Controller{
 	public function beforeAction($current)
     {
@@ -17,15 +18,16 @@ class CitysController extends Controller{
     }    
 	public function actionGetCitysByPid(){
 		if(Yii::$app->request->isPost){
+			Yii::$app->response->format = Response::FORMAT_JSON;
 			$id = Yii::$app->request->post('parent_id');
 			if(is_null($id)){
-				return \yii\helpers\Myhelper::result(-1,'id不能为空');
+				return ['code'=>-1,'data'=>'id不能为空'];
 			}
 			$citys = Citys::find()->select(['id','name'])->where('parent_id=:pid',[':pid'=>$id])->asArray()->all();
 			if(empty($citys)){
-				return \yii\helpers\Myhelper::result(-1,'不存在子类');
+				return ['code'=>-1,'data'=>'不存在子类'];
 			}
-			return \yii\helpers\Myhelper::result(1,$citys);
+			return ['code'=>1,'data'=>$citys];
 		}
 	}
 
