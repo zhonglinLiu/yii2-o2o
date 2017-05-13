@@ -40,6 +40,7 @@ class CommonController extends Controller{
 		$allow = ['admin/logout','admin/login'];
 		$controller = $action->controller->id;
 		$act = strtolower(implode('',explode('-',$action->id)));
+		$controller = strtolower(implode('',explode('-',$controller)));
 		if(in_array($controller.'/'.$act,$allow)){
 			return true;
 		}

@@ -9,13 +9,21 @@ use yii\helpers\Html;
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="o2o_s_edit('添加角色','<?php echo yii\helpers\Url::to(['rbac/addrole']) ?>','','300')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a></span> <span class="r"></span> </div>
 	<div class="mt-20">
-		<div class="row-fluid table">
                     <?php 
                        echo GridView::widget([
                             'dataProvider'=>$dataProvider,
+                            'formatter'=>[
+                                'class'=>'yii\i18n\Formatter',
+                                'defaultTimeZone'=>'PRC',
+                                'timeZone'=>'PRC',
+                                'locale'=>'zh-cn',
+                                'datetimeFormat'=>'Y-m-d H:i:s',
+                                'nullDisplay'=>'<span class="not-set">未设置</span>'
+                            ],
                             'columns' => [
                                 [
                                     'class' => 'yii\grid\SerialColumn',
+                                    'header'=>'*'
                                 ],
                                 'description:text:名称',
                                 'name:text:标识',
@@ -39,11 +47,13 @@ use yii\helpers\Html;
                                     ]
                                 ]
                             ],
+                            'beforeRow'=>function($model, $key, $index, $grid){
+                                
+                            },
                             'layout'=>"\n{items}\n{summary}<div class='pagination pull-right o2o-pager' >{pager}</div>"
                             
                         ])
                     ?>
-                </div>
 	</div>
 </div>
 

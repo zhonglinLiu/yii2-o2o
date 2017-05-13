@@ -7,7 +7,8 @@ use Yii;
 use app\models\Category;
 use app\models\Citys;
 use app\models\BisLocation;
-use yii\helpers\Myhelper;
+use yii\web\Response;
+
 class DealController extends CommonController{
 	public $layout = 'layout2';
 	 protected $actions=[
@@ -24,6 +25,7 @@ class DealController extends CommonController{
 
 	public function actionAdd(){
 		if(Yii::$app->request->isAjax){
+			Yii::$app->response->format = Response::FORMAT_JSON;
 			$user = Yii::$app->bis->identity;
 			$data = Yii::$app->request->post();
 			if(isset($data['se_category_id'])){
@@ -31,11 +33,11 @@ class DealController extends CommonController{
 			}
 			$data['bis_id'] = $user->bis_id;
 			if(!isset($data['location_ids']) || !is_array($data['location_ids'])){
-				return Myhelper::result(-1,'请选择参加活动地址');
+				return ['code'=>-1,'data'=>'请选择参加活动地址'];
 			}
 			$location = BisLocation::find()->where(['bis_id'=>$user->bis_id,'is_main'=>1])->one();
 			if(empty($location)){
-				return Myhelper::result(-1,'内部错误2');
+				return ['code'=>-1,'data'=>'内部错误2'];
 			}
 			$data['xpoint'] = $location->xpoint;
 			$data['ypoint'] = $location->ypoint;
@@ -54,12 +56,12 @@ class DealController extends CommonController{
 			$model->setAttributes($data);
 			if($model->validate()){
 				if($model->save(false)){
-					return Myhelper::result(1,'申请成功');
+					return ['code'=>1,'data'=>'申请成功'];
 				}else{
-					return Myhelper::result(-1,'申请失败');
+					return ['code'=>-1,'data'=>'申请失败'];
 				}
 			}else{
-				return Myhelper::result(-1,$model->getErrors());
+				return ['code'=>-1,'data'=>$model->getErrors()];
 			}
 
 		}

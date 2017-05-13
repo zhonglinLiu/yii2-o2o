@@ -8,8 +8,10 @@ use app\models\Citys;
 use app\models\Bis;
 use app\models\BisAccount;
 use app\models\BisLocation;
-use yii\helpers\Myhelper;
 use Yii;
+use yii\web\Response;
+use app\common\helpers\map;
+use app\common\helpers\common;
 /**
  * Default controller for the `index` module
  */
@@ -23,7 +25,7 @@ class RegisterController extends Controller
     public function actionIndex()
     {
         if(Yii::$app->request->isPost){
-
+            Yii::$app->response->format = Response::FORMAT_JSON;
             $post = Yii::$app->request->post();
             if(!empty($post['se_city_id']) ){
                 $post['city_path'] = $post['city_id'].','.$post['se_city_id'];
@@ -33,12 +35,13 @@ class RegisterController extends Controller
             if(!empty($post['se_category_id']) && is_array($post['se_category_id'])){
                 $post['category_path'] = implode(',',$post['se_category_id']);
             }
-            $rel = json_decode(Myhelper::getCoorByAddress($post['address']));
+            $rel = json_decode(map::getCoorByAddress($post['address']));
+
             if($rel->status!=0){
-                return Myhelper::result(-1,'请正确填写地址');
+                return ['code'=>-1,'data'=>'请正确填写地址'];
             }
             if(!empty($rel->result) && $rel->result->precise!=1){
-                return Myhelper::result(-1,'请填写详细地址');
+                return ['code'=>-1,'data'=>'请填写详细地址'];
             }
             $post['xpoint'] = $rel->result->location->lat;
             $post['ypoint'] = $rel->result->location->lng;
@@ -89,15 +92,15 @@ class RegisterController extends Controller
                 }
                 $url = Yii::$app->request->hostInfo.'/'.'index.php?r=bis/register/waiting&id='.$post['bis_id'];
                 $msg = '您的申请已成功提交,点击下面链接查看审核状态<br><a href="'.$url.'" >点我</a>';
-                $rel = Myhelper::setEmail($post['email'],'xx商城注册',$msg);
+                $rel = common::sendEmail($post['email'],'xx商城注册',$msg);
                 if($rel==false){
                     throw new \Exception(json_encode('邮件发送失败'), 1);
                     
                 }
                 $transaction->commit();
-                return Myhelper::result(1,'申请成功,请注意查收邮件');
+                return ['code'=>1,'data'=>'申请成功,请注意查收邮件'];
             } catch (\Exception $e) {
-                return Myhelper::result(-1,json_decode($e->getMessage()));
+                return ['code'=>-1,'data'=>json_decode($e->getMessage())];
                 $transaction->rollBack();
             }
         }else{

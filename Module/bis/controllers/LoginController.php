@@ -3,7 +3,7 @@ namespace app\Module\bis\controllers;
 use yii\web\Controller;
 use Yii;
 use app\models\BisAccount;
-use yii\helpers\Myhelper;
+use yii\web\Response;
 class LoginController extends CommonController{
 	public $layout = 'layout1';
 	protected $except=['*'];
@@ -12,6 +12,7 @@ class LoginController extends CommonController{
 			$this->redirect(['index/index']);
 		}*/
 		if(Yii::$app->request->isPost){
+			Yii::$app->response->format = Response::FORMAT_JSON;
 			$post = Yii::$app->request->post();
 			$model = new BisAccount();
 			$model->scenario = 'login';
@@ -21,15 +22,15 @@ class LoginController extends CommonController{
 				if(!empty($rel)){
 					if($rel->password==md5($post['password'].$rel->code)){
 						$rel = Yii::$app->bis->login($model->getUser(),3600*24);
-						return Myhelper::result(1,'登录成功');
+						return ['code'=>1,'data'=>'登录成功'];
 					}else{
-						return Myhelper::result(-1,'用户或密码错误');
+						return ['code'=>-1,'data'=>'用户或密码错误'];
 					}
 				}else{
-					return Myhelper::result(-1,'用户不存在');
+					return ['code'=>-1,'data'=>'用户不存在'];
 				}
 			}else{
-				return Myhelper::result(-1,$model->getErrors());
+				return ['code'=>-1,'data'=>$model->getErrors()];
 			}
 		}
 		return $this->render('index');

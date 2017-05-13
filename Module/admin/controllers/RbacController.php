@@ -9,9 +9,9 @@ use app\Module\admin\models\Admin;
 class RbacController extends CommonController{
 	public $layout = 'layout2';
 	protected $actions=[
-	 'roles','addrole','permissions','addpermission','assign-item','assignrole','admins'
-	 ];
-     protected $except=[];
+	 'roles','addrole','permissions','addpermission','assign-item','assignrole','admins','deleterole'
+	];
+    protected $except=[];
 	public function actionAddrole($name = null){
 		$auth = Yii::$app->authManager;
 		$obj = $auth->getRole($name);
@@ -65,6 +65,11 @@ class RbacController extends CommonController{
 		return $this->render('permissions',['dataProvider'=>$provider]);
 	}
 
+	/**
+	 * 添加或修改权限
+	 * @param  [type] $name [description]
+	 * @return [type]       [description]
+	 */
 	public function actionAddpermission($name=null){
 		$auth = Yii::$app->authManager;
 		$obj = null;
@@ -105,6 +110,11 @@ class RbacController extends CommonController{
 		return $this->render('addpermission',['obj'=>$obj]);
 	}
 
+	/**
+	 * 为角色添加子角色或权限
+	 * @param  [type] $name [description]
+	 * @return [type]       [description]
+	 */
 	public function actionAssignItem($name){
 		if(empty($name)){
 			return '参数错误';
@@ -184,5 +194,23 @@ class RbacController extends CommonController{
 		}
 		$auth->remove($obj);
 		return $this->redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	/*
+	删除角色
+	 */
+	public function actionDeleterole($name){
+		if(empty($name)){
+			return '内部错误';
+		}
+		$auth = Yii::$app->authManager;
+		$obj = $auth->getRole($name);
+		if(empty($obj)){
+			return '内部错误';
+		}
+		if($auth->remove($obj)){
+			return $this->redirect($_SERVER['HTTP_REFERER']);
+		}
+		return '删除失败';
 	}
 }

@@ -6,8 +6,9 @@ use yii\data\Pagination;
 use Yii;
 use app\models\Category;
 use app\models\Citys;
-use yii\helpers\Myhelper;
+use yii\web\Response;
 use app\Module\bis\controllers\CommonController;
+use app\common\helpers\map;
 class LocationController extends CommonController{
 	public $layout = 'layout2';
        protected $actions=[
@@ -25,14 +26,15 @@ class LocationController extends CommonController{
 
 	public function actionAdd(){
 		if(Yii::$app->request->isPost){
+                  Yii::$app->response->format = Response::FORMAT_JSON;
 			$post = Yii::$app->request->post();
-			$rel = Myhelper::getCoorByAddress($post['address']);
+                  $rel = map::getCoorByAddress($post['address']);
 			$rel = json_decode($rel);
 			if($rel->status==2 || $rel->status!=0){
-                        return Myhelper::result(-1,'请正确填写地址');
+                        return ['code'=>-1,'data'=>'请正确填写地址'];
                   }
                   if(!empty($rel->result) && $rel->result->precise!=1){
-                      return Myhelper::result(-1,'请填写详细地址');
+                      return ['code'=>-1,'data'=>'请填写详细地址'];
                   }
                   $post['xpoint'] = $rel->result->location->lat;
                   $post['ypoint'] = $rel->result->location->lng;
@@ -53,12 +55,12 @@ class LocationController extends CommonController{
                   $location->setAttributes($post);
                   if($location->validate()){
             	if($location->save(false)){
-            		return Myhelper::result(1,'申请成功');
+                        return ['code'=>1,'data'=>'申请成功'];
             	}else{
-            		return Myhelper::result(-1,'申请失败');
+                        return ['code'=>-1,'data'=>'申请失败'];
                   }
                   }else{
-            	     return Myhelper::result(-1,$location->getErrors());
+                       return ['code'=>-1,'data'=>$location->getErrors()];
                   }
 		}else{
                   $id = Yii::$app->request->get('id');

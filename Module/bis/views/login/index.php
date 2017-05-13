@@ -3,7 +3,7 @@
 
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-
+use yii\helpers\Url;
 ?>
 <input type="hidden" id="TenantId" name="TenantId" value="" />
 <div class="header"><h1 style="text-align:center">商户登录系统</h1></div>
@@ -33,7 +33,7 @@ use yii\helpers\Html;
 
           <input name="" type="button" id="liu-submit2" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
           <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
-          <a href="javascript:;"  ><input name="" type="" class="btn btn-success radius size-L" value="&nbsp;申请&nbsp;&nbsp;&nbsp;&nbsp;入驻&nbsp;"></a>
+          <a href="<?php echo Url::to(['register/index']) ?>"  ><input name="" type="button" class="btn btn-success radius size-L" value="&nbsp;申请&nbsp;&nbsp;&nbsp;&nbsp;入驻&nbsp;"></a>
         </div>
       </div>
     <?php ActiveForm::end() ?>
