@@ -2,7 +2,20 @@
 use yii\captcha\Captcha;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\helpers\Html;
 ?>
+<?php $this->registerCssFile('@web/index/css/user1.css') ?>
+<style type="text/css">
+    .has-error{
+        position: relative;
+    }
+    .help-block{
+        color: red;
+        position: absolute;
+        right: 15px;
+        top:10px;
+    }
+</style>
     <div class="wrapper">
         <div class="head">
             <ul>  
@@ -16,41 +29,48 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
 
-        <div class="content">
-            <form method="post" id="liu-form2">
-                <p class="pass-form-item">
-                    <label class="pass-label">用户名</label>
-                    <input type="text" name="username" class="pass-text-input check-null" placeholder="请设置用户名">
-                </p>
-                <p class="pass-form-item">
-                    <label class="pass-label">邮箱号</label>
-                    <input type="text" name="email" class="pass-text-input check-null" placeholder="可用于接受团购券账号和密码便于消费">
-                </p>
-                
-                <p class="pass-form-item">
-                    <label class="pass-label">密码</label>
-                    <input type="password" name="password" class="pass-text-input check-null password" >
-                </p>
-                <p class="pass-form-item">
-                    <label class="pass-label">确认密码</label>
-                    <input type="password" name="repass" class="pass-text-input repass" >
-                </p>
-                <p class="pass-form-item">
-                    <label class="pass-label">验证码</label>
-                    <input type="text" name="verifyCode" class="pass-text-input " placeholder="请输入验证码">
-                </p>
-                <div>
-                    <?php 
-    echo Captcha::widget(['name'=>'captchaimg','captchaAction'=>'user/captcha','imageOptions'=>['id'=>'captchaimg', 'title'=>'换一个', 'alt'=>'换一个', 'style'=>'cursor:pointer;margin-left:25px;'],'template'=>'{image}']);?>
-                
-                </div>
-                
-                <p class="pass-form-item check-form">
-                    <input type="button" id="liu-submit2" value="注册" class="pass-button">
-                </p>
-            </form>
-        </div>
 
+
+        
+        <div class="content">
+        <?php 
+            if(Yii::$app->session->hasFlash('info')){
+                echo Yii::$app->session->getFlash('info');
+            }
+
+        ?>
+            <?php $form = ActiveForm::begin([
+                'options'=>['id'=>'liuform2'],
+            ]) ?>
+            <p class="pass-form-item">
+                <?php echo $form->field($model,'username')->textInput(['class'=>'pass-text-input','placeholder'=>'请设置用户名'])->label('用户名',['class'=>'pass-label']) ?>
+            </p>
+            <p class="pass-form-item">
+                <?php echo $form->field($model,'email')->textInput(['class'=>'pass-text-input','placeholder'=>'可用于接受团购券账号和密码便于消费'])->label('邮箱号',['class'=>'pass-label']) ?>
+            </p>
+             <p class="pass-form-item">
+                <?php echo $form->field($model,'password')->textInput(['class'=>'pass-text-input'])->label('密码',['class'=>'pass-label']) ?>
+            </p>
+            <p class="pass-form-item">
+                <?php echo $form->field($model,'repass')->textInput(['class'=>'pass-text-input'])->label('确认密码',['class'=>'pass-label']) ?>
+            </p>
+            <p class="pass-form-item">
+                <?= $form->field($model,'verifyCode')->widget(yii\captcha\Captcha::className(),[
+                'captchaAction'=>'/index/user/captcha',
+                'imageOptions'=>['alt'=>'点击换图','title'=>'点击换图', 'style'=>'cursor:pointer'],
+                'template' => "{input}{image}",
+                'options'=>['class'=>'pass-text-input']
+            ])->label('验证码',['class'=>'pass-label']);?>
+            </p>
+                
+             <p class="pass-form-item check-form">
+                <?php echo Html::submitButton('注册',['class'=>'pass-button']) ?>
+            </p>
+
+            <?php ActiveForm::end() ?>
+        </div>
+        
+        
         <div class="foot">
             <div>
                 <div>2016&nbsp;©Baidu</div>
@@ -63,11 +83,6 @@ use yii\widgets\ActiveForm;
     save_url: "<?php echo Url::to(['user/register']) ?>",
     jump_url: "<?php echo Url::to(['user/login']) ?>"
 }
-$('input.repass').blur(function(){
-    if(this.value!=$('input.password').val()){
-        dialog.tip('密码与确认密码不一致',this);
-    }
-})
+
 </script>
-<script type="text/javascript" src='/js/common.js' ></script>
 <?php $this->endBlock() ?>

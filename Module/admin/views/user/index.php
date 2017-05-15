@@ -63,7 +63,7 @@ use app\common\components\statusWidget;
 
 					</a></td>
 					<td class="td-manage">
-						<a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('用户详情','<?php echo Url::to(['/admin/user/detail','id'=>$v->id]) ?>')" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('用户详情','<?php echo Url::to(['/admin/user/edit','id'=>$v->id]) ?>')" href="javascript:;" title="查看"><i class="Hui-iconfont">&#xe6df;</i></a>
 						<a style="text-decoration:none" class="ml-5" onClick="o2o_del('<?php echo Url::to(['user/status','id'=>$v->id]) ?>')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
 					</td>
 				</tr>

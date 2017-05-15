@@ -4,9 +4,7 @@ use yii\helpers\Url;
 <?php $this->beginBlock('viewCss') ?>
 <link rel="stylesheet" href="/index/css/login.css" />
 <?php $this->endBlock() ?>
-<style type="text/css">
-    #liu-submit2{margin-left: 0;width:280px;}
-</style>
+
     <div class="wrapper">
         <div class="head">
             <ul>
@@ -26,23 +24,23 @@ use yii\helpers\Url;
                 <div class="login-area">
                     <div class="title">登录</div>
                     <div class="login">
-                        <form method="post" id="liu-form2">
+                        <form method="post" id="liuform2">
                             <div class="ordinaryLogin">
                                 
                                 <p class="pass-form-item">
                                     <label class="pass-label">用户名</label>
-                                    <input type="text" name="username" class="pass-text-input check_null" attr-msg='用户名不能为空' placeholder="用户名">
+                                    <input type="text" name="username" class="pass-text-input"  placeholder="用户名">
                                 </p>
                                 <p class="pass-form-item">
                                     <label class="pass-label">密码</label>
-                                    <input type="password" name="password" class="pass-text-input check_null" attr-msg='密码不能为空'  placeholder="密码">
+                                    <input type="password" name="password" class="pass-text-input"   placeholder="密码">
                                 </p>
                                 
                             </div>
                            <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->csrfToken ?>">
                             <div class="commonLogin check_form">
                                 <p class="pass-form-item ">
-                                    <input type="button" id="liu-submit2" value="登录" class="pass-button">
+                                    <input type="submit" id="liusubmit2" value="登录" class="pass-button">
                                 </p>
                             </div>
                         </form>
@@ -61,7 +59,8 @@ use yii\helpers\Url;
             </ul>
         </div>
     </div>
-
+<?php $this->registerJsFile('@web/admin/hui/lib/jquery.validation/1.14.0/jquery.validate.min.js',['depends'=>'\yii\web\JqueryAsset']) ?>
+<?php $this->registerJsFile('@web/admin/hui/lib/jquery.validation/1.14.0/messages_zh.min.js',['depends'=>'\yii\web\JqueryAsset']) ?>
     <?php $this->beginBlock('viewJs') ?>
     <script type="text/javascript" src="/js/common.js"></script>
     <script>
@@ -77,5 +76,20 @@ use yii\helpers\Url;
             $(".messageLogin,.question").css({display: "none"});
             $(".ordinaryLogin").css({display: "block"});
         });
+
+    $().ready(function(){
+        $('#liuform2').validate({
+            rules:{
+                username:"required",
+                password:"required",
+            },
+            submitHandler:function(form){
+                $(form).find(':submit').submit(function(){
+                    return false
+                })
+               formSubmit("#liuform2",'');
+            }
+        })
+    })
     </script>
     <?php $this->endBlock() ?>

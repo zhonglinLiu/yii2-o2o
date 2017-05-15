@@ -40,6 +40,8 @@ use yii\widgets\LinkPager;
 		</table>
 	</div>
 </div>
+
+
 <div class="o2o-pager">
 	<?php echo LinkPager::widget(['pagination' => $pager]) ?>
 </div>

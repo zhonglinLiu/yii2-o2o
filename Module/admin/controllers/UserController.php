@@ -45,7 +45,35 @@ class UserController extends CommonController{
 	}
 
 	public function actionEdit(){
-		return '待开发';
+		if(Yii::$app->request->isPost){
+			Yii::$app->response->format = Response::FORMAT_JSON;
+			$post = Yii::$app->request->post();
+			$model = new User;
+			$model->scenario = 'adminEdit';
+			$model->setAttributes($post);
+			$model->setAttribute('id',$post['id']);
+			if($model->validate()){
+				var_dump(3);
+				$code = range(10000,999999);
+				$post['code'] = $code;
+				$post['password'] = md5($post['password'].$code);
+				var_dump(2);
+				$rel = User::updateAll($post,'id=:id',[':id'=>intval($post['id'])]);
+				if($rel){
+					return ['code'=>1,'data'=>'修改成功'];
+				}
+				return ['code'=>-1,'data'=>'修改失败'];
+			}else{
+				return ['code'=>-1,'data'=>$model->getErrors()];
+			}
+			return;
+		}
+		$id = Yii::$app->request->get('id');
+		if(empty($id)){
+			return '参数错误';
+		}
+		$user = User::findOne(['id'=>intval($id)]);
+		return $this->render('edit',['user'=>$user]);
 	}
 
 	/*public function actionStatus(){
@@ -62,7 +90,7 @@ class UserController extends CommonController{
 
 	}*/
 	public function actionDetail(){
-		return '待开发...';
+		
 	}
 
 }

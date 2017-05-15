@@ -75,7 +75,7 @@ $('.categoryId').change(function () {
 
 //bis模块登录页
 //异步检查用户名是否已被注册
-$('#username').blur(function () {
+/*$('#username').blur(function () {
 	var that = $(this);
 	var data = {};
 	data.username = $(this).val();
@@ -85,12 +85,12 @@ $('#username').blur(function () {
 			that.val('');
 		}
     })
-})
+})*/
 //显示地图
 $('#showposition').click(function () {
 	var that = $(this);
 	var data = {};
-	data.position = $('#bis-address').val();
+	data.position = $('.bis-address').val();
 	if(data.position==''){
 		dialog.error('位置不能为空');
 		return;
@@ -157,6 +157,44 @@ $('.check_form').mousedown(function(){
 })
 
 
+/**
+ * 结合 jquery-validation 使用
+ * @param  {[type]} selector [description]
+ * @param  {[type]} url      [description]
+ * @return {[type]}          [description]
+ */
+function formSubmit(selector,url){
+	var arr = $(selector).serializeArray();
+	var data = {};
+	$(arr).each(function (index,obj) {
+		data[this.name] = this.value;
+    })
+    console.log(data);
+    var index = dialog.loading('请稍等');
+     $.post(url,data,function (d) {
+    	dialog.closed(index);
+		if(d.code!=1){
+			if(typeof d.data == 'object'){
+				var pos = 100;
+				for(var k in d.data){
+					/*pos+=50;
+					dialog.showMsg(d.data[k][0],{offset:pos+'px'});*/
+					$('#'+k+'-error').show().text(d.data[k][0]);
+					$('#'+k).addClass('error');
+				}
+				return true;
+			}else{
+				dialog.error(d.data);
+			}
+			// 
+		}else{
+			dialog.success(d.data,SCOPE.jump_url);
+		}
+    },'json')
+     return false;
+}
+
+
 $('#liu-submit').click(function () {
 	if(IS_NULL==true){
 		IS_NULL = false;
@@ -164,6 +202,7 @@ $('#liu-submit').click(function () {
 	}
 	var arr = $('#liu-form').serializeArray();
 	var data = {};
+	
 	$(arr).each(function (index,obj) {
 		data[this.name] = this.value;
     })
@@ -172,6 +211,7 @@ $('#liu-submit').click(function () {
     console.log(data);
     $.post(url,data,function (d) {
 		if(d.code!=1){
+			console.log(d)
 			dialog.error(d.data);
 		}else{
 			dialog.success(d.data,SCOPE.jump_url);
@@ -204,6 +244,7 @@ $('#liu-submit2').click(function () {
 				}
 				return true;
 			}else{
+
 				dialog.error(d.data);
 			}
 			// 
@@ -212,3 +253,4 @@ $('#liu-submit2').click(function () {
 		}
     },'json')
 })
+

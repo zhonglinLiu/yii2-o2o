@@ -5,7 +5,7 @@ use Yii;
 use app\models\BisAccount;
 use yii\web\Response;
 class LoginController extends CommonController{
-	public $layout = 'layout1';
+	public $layout = 'layout2';
 	protected $except=['*'];
 	public function actionIndex(){
 		/*if(!empty(Yii::$app->session->get('bis'))){

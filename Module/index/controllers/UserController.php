@@ -16,8 +16,8 @@ class UserController extends CommonController{
                         'class' => 'yii\captcha\CaptchaAction',
                         'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
                         'backColor'=>0x000000,//背景颜色
-                        'maxLength' => 6, //最大显示个数
-                        'minLength' => 5,//最少显示个数
+                        'maxLength' =>4 , //最大显示个数
+                        'minLength' => 4,//最少显示个数
                         'padding' => 5,//间距
                         'height'=>40,//高度
                         'width' => 130,  //宽度  
@@ -29,6 +29,7 @@ class UserController extends CommonController{
 	}
 
 	public function actionLogin(){
+
 		if(Yii::$app->request->isPost){
 			Yii::$app->response->format = Response::FORMAT_JSON;
 			$data = Yii::$app->request->post();
@@ -41,11 +42,12 @@ class UserController extends CommonController{
 				return ['code'=>-1,'data'=>$model->getErrors()];
 			}
 		}
+		
 		return $this->render('login');
 	}
 
 	public function actionRegister(){
-		if(Yii::$app->request->isPost){
+		/*if(Yii::$app->request->isAjax){
 			$data = Yii::$app->request->post();
 			$model = new User;
 			$model->scenario = 'register';
@@ -63,12 +65,28 @@ class UserController extends CommonController{
 				return ['code'=>-1,'data'=>$models->getErrors()];
 			}
 
+		}*/
+		$model = new User(['scenario' => 'register']);
+		if(Yii::$app->request->ispost){
+			$post = Yii::$app->request->post();
+			if($model->load($post) && $model->validate()){
+				$code = mt_rand(1000,9999);
+				$model->code = $code;
+				$model->password = md5($model->password.$code);
+				if($model->save(false)){
+					Yii::$app->session->setFlash('info','注册成功');
+				}else{
+					Yii::$app->session->setFlash('info','注册失败');
+				}
+			}
 		}
-		return $this->render('register');
+		$model->password = '';
+		$model->repass = '';
+		return $this->render('register',['model'=>$model]);
 	}
 
 	public function actionLogout(){
 		Yii::$app->user->logout(false);
-		return $this->redirect('user/login');
+		return $this->redirect('/index/user/login');
 	}
 }

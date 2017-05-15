@@ -28,18 +28,40 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface{
 
     public function rules(){
         return [
-            ['username','required','message'=>'用户名不能为空','on'=>['login','register']],
+            ['username','required','message'=>'用户名不能为空','on'=>['login','register','adminEdit']],
             ['username','unique','message'=>'该用户已被注册','on'=>['register']],
-            ['password','required','message'=>'密码不能为空','on'=>['login','register']],
+            ['username','editUsernameUnique','message'=>'该用户名已被注册','on'=>['adminEdit']],
+            ['password','required','message'=>'密码不能为空','on'=>['login','register','adminEdit']],
             ['password','validateLogin','message'=>'账号或密码错误','on'=>['login']],
-            // ['verifyCode','captcha','message'=>'验证码错误','on'=>['register']],
+            ['verifyCode','captcha','message'=>'验证码错误','captchaAction'=>'/index/user/captcha','on'=>['register']],
             ['email','unique','message'=>'该邮箱已被注册','on'=>['register']],
-            ['email','required','message'=>'邮箱不能为空','on'=>['register']],
-            ['email','email','message'=>'请正确填写email','on'=>['register']],
+            ['email','editEmailUnique','message'=>'该邮箱已被注册','on'=>['adminEdit']],
+            ['email','required','message'=>'邮箱不能为空','on'=>['register','adminEdit']],
+            ['email','email','message'=>'请正确填写email','on'=>['register','adminEdit']],
             ['status','default','value'=>1,'on'=>['register']],
-            ['repass', 'compare', 'compareAttribute' => 'password', 'operator' => '==','on'=>['register']],
+            ['repass','required','message'=>'确认密码不能为空','on'=>['register']],
+            ['repass', 'compare', 'compareAttribute' => 'password', 'operator' => '==','message'=>'密码与确认密码不一致','on'=>['register','adminEdit']],
         ];
     }
+
+    public function editUsernameUnique(){
+        $rel = $this->findOne(['username'=>$this->username]);
+        if($rel && $rel->id != $this->id){
+            $this->addError('username','该用户已被注册');
+            return false;
+        }
+        return true;
+    }
+
+    public function editEmailUnique(){
+        $rel = $this->findOne(['email'=>$this->email]);
+        if($rel && $rel->id != $this->id){
+            $this->addError('email','该邮箱已被注册');
+            return false;
+        }
+        return true;
+    }
+
 
     public function validateLogin(){
         if(!$this->hasErrors()){

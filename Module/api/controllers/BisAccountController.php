@@ -21,7 +21,7 @@ class BisAccountController extends Controller{
 		Yii::$app->response->format = Response::FORMAT_JSON;
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
-			$position = $post['position'];
+			$position = $post['position']; 
 			$rel = map::getCoorByAddress($position);
 			$rel = json_decode($rel);
 			if($rel->status!=0){

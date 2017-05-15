@@ -1,7 +1,6 @@
 <!--包含头部文件-->
 <?php 
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
 ?>
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加分店信息</div>
 <article class="page-container">
@@ -138,6 +137,7 @@ $(function(){
 	var ue = UE.getEditor('editor');
 });
 </script>
+
 <?php $this->endBlock() ;?>
 </body>
 </html>

@@ -33,7 +33,7 @@ class IndexAsset extends AssetBundle
     ]; */
     //依赖关系  
     public $depends = [  
-       
+       '\yii\web\JqueryAsset'
     ];  
   
      //定义按需加载JS方法，注意加载顺序在最后  
@@ -49,6 +49,7 @@ class IndexAsset extends AssetBundle
      public function registerAssetFiles($view){
         $release = '123';
         $controller = Yii::$app->controller->id;
+
         $this->css = [
             'index/css/base.css',
             'index/css/common.css', 
@@ -57,7 +58,6 @@ class IndexAsset extends AssetBundle
         $this->js = [
             'index/js/html5shiv.js',
              'index/js/respond.min.js',
-             'index/js/jquery-1.11.3.min.js',
              'js/dialog/layer.js',
              'js/dialog.js'
         ];

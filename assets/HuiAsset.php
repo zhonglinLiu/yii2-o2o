@@ -30,12 +30,9 @@ class HuiAsset extends AssetBundle
     ];  
     //全局JS  
     public $js = [  
-         'admin/hui/lib/jquery/1.9.1/jquery.min.js',
+
          'admin/hui/lib/layer/2.1/layer.js',
          'admin/hui/lib/My97DatePicker/WdatePicker.js',
-         'admin/hui/lib/jquery.validation/1.14.0/jquery.validate.min.js',
-         'admin/hui/lib/jquery.validation/1.14.0/validate-methods.js',
-         'admin/hui/lib/jquery.validation/1.14.0/messages_zh.min.js',
          'admin/hui/static/h-ui/js/H-ui.js',
          'admin/hui/static/h-ui.admin/js/H-ui.admin.js',
          'js/common.js',
@@ -52,6 +49,7 @@ class HuiAsset extends AssetBundle
     public $depends = [
         // 'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        '\yii\web\JqueryAsset'
     ]; 
 
     public $jsOptions = [

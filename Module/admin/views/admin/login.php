@@ -8,49 +8,81 @@ use yii\helpers\Url;
 
     <div id="loginform" class="loginBox">
 
-        <form class="form form-horizontal" id="liu-form2" >
+        <form class="form form-horizontal" id="liuform2" method="post"  >
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="" name="username" type="text" placeholder="账户" class="input-text size-L">
+                    <input id="username" name="username" type="text" placeholder="账户" class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
                 <div class="formControls col-xs-8">
-                    <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
+                    <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3">验证码</label>
                 <div class="formControls col-xs-8">
-                    <input type="text" name="verifyCode" class="input-text size-L" placeholder="请输入验证码">
+                    <input type="text" id="verifyCode" name="verifyCode" class="input-text size-L" placeholder="请输入验证码">
                     <br/>
                 </div>
 
             </div>
 
 
-
+            <input type="hidden" id="_csrf" name="_csrf" value="<?php echo Yii::$app->request->csrfToken ?>">
             <div class="row cl">
 
                 <div class="formControls col-xs-8 col-xs-offset-3">
 
-                    <input name="" id="liu-submit2" type="button" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                    <input name="" id="liusubmit2" type="submit"  class="btn btn-success radius size-L submit" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
                     <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
                 </div>
             </div>
-            <input type="hidden" name="_csrf" value="<?php echo Yii::$app->request->csrfToken ?>">
+            
         </form>
     </div>
 </div>
 <div class="footer">Copyright tp5打造本地生活服务系统</div>
 <!--包含尾部文件-->
+<?php $this->registerJsFile('@web/js/jquery.validation/1.14.0/jquery.validate.js',['position'=>'POS_END']) ?>
 <?php $this->beginBlock('viewJs'); ?>
 <script>
 var SCOPE = {
     save_url:'<?php echo Url::to(['admin/login']) ?>',
     jump_url:'<?php echo Url::to(['index/index']) ?>'
 }
+$("#liuform2").validate({
+    rules:{
+            username:{
+                required:true,
+                minlength:2,
+                maxlength:16
+            },
+            password:{
+                required:true,
+            }
+            
+            
+        },
+        
+        onkeyup:false,
+        focusCleanup:true,
+        onfocusout:false,
+        success:"valid",
+        invalidHandler : function(){
+              return false;
+        },
+        submitHandler:function(form){
+            $(form).find(':submit').submit(function(){
+                return false
+            })
+            return false;
+           formSubmit("#liuform2",'');
+        }
+})
+
+
 </script>
 <?php $this->endBlock() ?>
