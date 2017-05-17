@@ -177,10 +177,14 @@ function formSubmit(selector,url){
 			if(typeof d.data == 'object'){
 				var pos = 100;
 				for(var k in d.data){
-					/*pos+=50;
-					dialog.showMsg(d.data[k][0],{offset:pos+'px'});*/
-					$('#'+k+'-error').show().text(d.data[k][0]);
-					$('#'+k).addClass('error');
+					var dom = $('#'+k+'-error');
+					if(dom.length==0){
+						pos+=50;
+						dialog.showMsg(d.data[k][0],{offset:pos+'px'});
+					}else{
+						dom.show().text(d.data[k][0]);
+						$('#'+k).addClass('error');
+					}
 				}
 				return true;
 			}else{

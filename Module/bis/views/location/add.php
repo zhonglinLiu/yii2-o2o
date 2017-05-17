@@ -4,18 +4,18 @@ use yii\helpers\Url;
 ?>
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加分店信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="liu-form2">
+	<form class="form form-horizontal" id="liuform2">
 	基本信息：
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分店名称：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="<?php echo $model->name ?>" placeholder="" id="" name="name">
+				<input type="text" class="input-text" value="<?php echo $model->name ?>" placeholder="" id="name" name="name">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">银行账号:</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="<?php echo $model->bank_info ?>" placeholder="" id="" name="bank_info">
+				<input type="text" class="input-text" value="<?php echo $model->bank_info ?>" placeholder="" id="bank_info" name="bank_info">
 			</div>
 		</div>
 		
@@ -23,7 +23,7 @@ use yii\helpers\Url;
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属城市：</label>
 			<div class="formControls col-xs-8 col-sm-2"> 
 				<span class="select-box">
-				<select name="city_id" class="select cityId">
+				<select id="city_id" name="city_id" class="select cityId">
 					<option value="" >--请选择--</option>
 					<?php foreach($citys as $v): ?>
 					<option value="<?php echo $v->id ?>" <?php if($model->city_id==$v->id) echo 'selected' ?> ><?php echo $v->name ?></option>
@@ -62,7 +62,7 @@ use yii\helpers\Url;
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>所属分类：</label>
 			<div class="formControls col-xs-8 col-sm-3"> <span class="select-box">
-				<select name="category_id" class="select categoryId">
+				<select id="category_id" name="category_id" class="select categoryId">
 					<option value="">--请选择--</option>
 					<?php foreach($cates as $v): ?>
 					<option value="<?php echo $v->id ?>" <?php if($model->category_id==$v->id) echo 'selected' ?> ><?php echo $v->name ?></option>
@@ -82,7 +82,7 @@ use yii\helpers\Url;
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">地址：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text"  class="input-text" value="<?php echo $model->address ?>" placeholder="" id="bis-address" name="address">
+				<input type="text"  class="input-text" value="<?php echo $model->address ?>" placeholder="" id="bis-address" name="address" required>
 			</div>
 			<br>
 			<div style="margin-left:200px" data-vertical="col-xs-8 col-sm-3" id="showmap">
@@ -92,25 +92,25 @@ use yii\helpers\Url;
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">电话:</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="<?php echo $model->tel ?>" placeholder="" id="" name="tel">
+				<input type="text" class="input-text" value="<?php echo $model->tel ?>" placeholder="" id="tel" name="tel">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">联系人:</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="<?php echo $model->contact ?>" placeholder="" id="" name="contact">
+				<input type="text" class="input-text" value="<?php echo $model->contact ?>" placeholder="" id="contact" name="contact">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">营业时间:</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="<?php echo $model->open_time ?>" placeholder="" id="" name="open_time">
+				<input type="text" class="input-text" value="<?php echo $model->open_time ?>" placeholder="" id="open_time" name="open_time">
 			</div>
 		</div>
 		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button class="btn btn-primary radius" type="button" id="liu-submit2"><i class="Hui-iconfont">&#xe632;</i> 申请</button>	
+				<button class="btn btn-primary radius" type="submit" id="liusubmit2"><i class="Hui-iconfont">&#xe632;</i> 申请</button>	
 			</div>
 		</div>
 		<input type="hidden" name="id" value="<?php echo $model->id ?>">
@@ -118,10 +118,13 @@ use yii\helpers\Url;
 	</form>
 </article>
     <!--包含尾部文件-->
+<?php $this->registerJsFile('@web/admin/hui/lib/jquery.validation/1.14.0/jquery.validate.min.js',['depends'=>'\yii\web\JqueryAsset']) ?>
+<?php $this->registerJsFile('@web/admin/hui/lib/jquery.validation/1.14.0/messages_zh.min.js',['depends'=>'\yii\web\JqueryAsset']) ?>
 <?php $this->beginBlock('viewJs'); ?>
 <script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
 <script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
 <script type="text/javascript" src="/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+
 <script>
     var SCOPE = {
     citys_url : '<?php echo yii\helpers\Url::to(['/api/citys/get-citys-by-pid']) ?>',
@@ -133,9 +136,44 @@ use yii\helpers\Url;
 }
 </script>
 <script>
+var css = document.createElement("link")
+console.log($('script'));
 $(function(){
 	var ue = UE.getEditor('editor');
 });
+$().ready(function(){
+	$('#liuform2').validate({
+		rules:{
+			name:"required",
+			bank_info:{
+				required:true,
+				number:true
+			},
+			city_id:{
+				required:true,
+				number:true
+			},
+			category_id:{
+				required:true,
+				number:true,
+			},
+			tel:{
+				required:true,
+				number:true,
+			},
+			contact:"required",
+			open_time:"required",
+
+
+
+		},
+		submitHandler:function(form){
+			$(form).find(':submit').submit(function(){return false})
+			formSubmit("#liuform2",'');
+		}
+	})
+})
+
 </script>
 
 <?php $this->endBlock() ;?>

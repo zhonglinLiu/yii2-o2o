@@ -80,3 +80,4 @@ class DealController extends CommonController{
         return $this->render('add',['citys'=>$citys,'cates'=>$cates,'stores'=>$stores,'model'=>$model]);
 	}
 } 
+
