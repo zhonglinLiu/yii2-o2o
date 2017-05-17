@@ -34,11 +34,9 @@ class CitysController extends CommonController{
 	}*/
 
 	public function actionAdd(){
-		$model = new Citys;
+		$model = new Citys(['scenario'=>'add']);
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
-			$post['Citys']['parent_id'] = $post['parent_id'];
-			$model->scenario = 'add';
 			$post['Citys']['status'] = 1;
 			$model->load($post);
 			if($model->validate()){
@@ -49,7 +47,11 @@ class CitysController extends CommonController{
 			}
 		}
 		$citys = $model->getTopCitys();
-		return $this->render('add',['citys'=>$citys,'model'=>$model]);
+		$select[0] = '分类';
+		foreach ($citys as $value) {
+			$select[$value->id] = $value->name;
+		}
+		return $this->render('add',['model'=>$model,'select'=>$select]);
 	}
 
 	public function actionEdit(){

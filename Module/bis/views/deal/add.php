@@ -211,6 +211,7 @@ $().ready(function(){
 		}
 	})
 })
+
 </script>
 
 <?php $this->endBlock(); ?>

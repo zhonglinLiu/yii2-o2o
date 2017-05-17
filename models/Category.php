@@ -11,6 +11,7 @@ class Category extends ActiveRecord{
 			['name','required','message'=>'名称不能为空','on'=>['add']],
 			['parent_id','required','message'=>'参数非法','on'=>['add']],
 			['parent_id','number','message'=>'参数非法','on'=>['add']],
+			['parent_id','compare','compareAttribute'=>0,'operator'=>'>','message'=>'分类错误','on'=>['add']],
 			[['status'],'safe']
 		];
 	}

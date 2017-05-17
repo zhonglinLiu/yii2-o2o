@@ -47,25 +47,6 @@ class UserController extends CommonController{
 	}
 
 	public function actionRegister(){
-		/*if(Yii::$app->request->isAjax){
-			$data = Yii::$app->request->post();
-			$model = new User;
-			$model->scenario = 'register';
-			$model->setAttributes($data);
-			if($model->validate()){
-				$model->code = mt_rand(1000,9999);
-				$model->password = md5($model->password.$model->code);
-				if($model->save(false)){
-					return ['code'=>1,'data'=>'注册成功'];
-				}else{
-					return ['code'=>-1,'data'=>'注册失败'];
-
-				}
-			}else{
-				return ['code'=>-1,'data'=>$models->getErrors()];
-			}
-
-		}*/
 		$model = new User(['scenario' => 'register']);
 		if(Yii::$app->request->ispost){
 			$post = Yii::$app->request->post();

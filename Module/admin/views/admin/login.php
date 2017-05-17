@@ -46,43 +46,43 @@ use yii\helpers\Url;
 </div>
 <div class="footer">Copyright tp5打造本地生活服务系统</div>
 <!--包含尾部文件-->
-<?php $this->registerJsFile('@web/js/jquery.validation/1.14.0/jquery.validate.js',['position'=>'POS_END']) ?>
+<?php $this->registerJsFile('@web/js/jquery.validation/1.14.0/jquery.validate.js',['depends'=>'\yii\web\JqueryAsset']) ?>
 <?php $this->beginBlock('viewJs'); ?>
 <script>
 var SCOPE = {
     save_url:'<?php echo Url::to(['admin/login']) ?>',
     jump_url:'<?php echo Url::to(['index/index']) ?>'
 }
-$("#liuform2").validate({
-    rules:{
-            username:{
-                required:true,
-                minlength:2,
-                maxlength:16
+$().ready(function(){
+    $("#liuform2").validate({
+        rules:{
+                username:{
+                    required:true,
+                    minlength:2,
+                    maxlength:16
+                },
+                password:{
+                    required:true,
+                }
+                
+                
             },
-            password:{
-                required:true,
+            onkeyup:false,
+            focusCleanup:true,
+            onfocusout:false,
+            success:"valid",
+            invalidHandler : function(){
+                  return false;
+            },
+            submitHandler:function(form){
+                $(form).find(':submit').submit(function(){
+                    return false
+                });
+               formSubmit("#liuform2",'');
             }
-            
-            
-        },
-        
-        onkeyup:false,
-        focusCleanup:true,
-        onfocusout:false,
-        success:"valid",
-        invalidHandler : function(){
-              return false;
-        },
-        submitHandler:function(form){
-            $(form).find(':submit').submit(function(){
-                return false
-            })
-            return false;
-           formSubmit("#liuform2",'');
-        }
-})
+    })
 
+})
 
 </script>
 <?php $this->endBlock() ?>

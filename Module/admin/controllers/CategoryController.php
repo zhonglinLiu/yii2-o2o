@@ -29,13 +29,12 @@ class CategoryController extends CommonController{
 	}
 
 	public function actionAdd(){
-		$model = new Category;
+		$model = new Category(['scenario'=>'add']);
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
 			$model->parent_id = intval($post['parent_id']);
 			$model->name = $post['name'];
 			$model->status = 1;
-			$model->scenario = 'add';
 			if($model->validate()){
 				if($model->save()){
 					Yii::$app->session->setFlash('info','添加成功');
@@ -48,7 +47,12 @@ class CategoryController extends CommonController{
 			
 		}
 		$cates = $model->getTopCates();
-		return $this->render('add',['cates'=>$cates]);
+		$select = [];
+		$select[0] = '分类';
+		foreach ($cates as $value) {
+			$select[$value->id] = $value->name;
+		}
+		return $this->render('add',['model'=>$model,'select'=>$select]);
 	}
 
 	public function actionEdit(){
@@ -69,7 +73,9 @@ class CategoryController extends CommonController{
 			$cate = Category::find()->where('id=:id',[':id'=>$id])->one();
 		}
 		$model = new Category;
+		
 		$cates = $model->getTopCates();
+		
 		return $this->render('edit',['cates'=>$cates,'cate'=>$cate]);
 	}
 

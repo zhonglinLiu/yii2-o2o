@@ -7,29 +7,28 @@ if(Yii::$app->session->hasFlash('info')){
 	echo Yii::$app->session->getFlash('info');
 }
 ?>
+<style type="text/css">
+	.form-group{
+		width: 100%;
+	}
+</style>
 <div class="page-container">
 	<?php 
-		ActiveForm::begin([
+		$form = ActiveForm::begin([
 			'options'=>['class'=>'form form-horizontal form-o2o-add','id'=>'form-o2o-add']
 		])
 	?>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>生活服务分类名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+				<!-- <input type="text" class="input-text" value="" placeholder="" id="name" name="name"> -->
+				<?php echo $form->field($model,'name')->textInput(['class'=>'form-control'])->label(false) ?>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box">
-				<select name="parent_id" class="select">
-					<option value="0">一级分类</option>
-					<?php foreach($cates as $v): ?>
-					<option value="<?php echo $v->id ?>" ><?php echo $v->name ?></option>
-					<?php endforeach; ?>
-				</select>
-				</span>
+				<?php echo $form->field($model,'parent_id')->dropDownList($select,['class'=>'form-control'])->label(false) ?>
 			</div>
 		</div>
 		

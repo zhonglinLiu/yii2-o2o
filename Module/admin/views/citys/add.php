@@ -5,6 +5,11 @@ use yii\helpers\Html;
 
 ?>
 <body>
+<style type="text/css">
+	.form-group{
+		width:100%;
+	}
+</style>
 <div class="page-container">
 <p style="text-align: center;color:red">
 	
@@ -17,34 +22,29 @@ use yii\helpers\Html;
 	?>
 </p>
 	<?php $form = ActiveForm::begin([
-		'options'=>['class'=>'form form-horizontal form-o2o-add','id'=>'form-o2o-add'],
+		'options'=>['class'=>'form form-horizontal'],
+		'id' => 'form-id',
 		'fieldConfig'=>[
-			'template'=>'{error}{label}{input}',
+			'template'=>'{error}{input}',
 		]
 	]) ?>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>城市名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<?php echo $form->field($model,'name')->textInput(['class'=>'input-text','placeholder'=>'必填']) ?>
+				<?php echo $form->field($model,'name')->textInput(['class'=>'form-control','placeholder'=>'必填'])->label(false) ?>
 			</div>
 		</div>
+
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>城市英文名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<?php echo $form->field($model,'uname')->textInput(['class'=>'input-text','placeholder'=>'选填']) ?>
+				<?php echo $form->field($model,'uname')->textInput(['class'=>'form-control','placeholder'=>'选填'])->label(false) ?>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<span class="select-box">
-				<select name="parent_id" class="select">
-					<option value="0">一级分类</option>
-					<?php foreach($citys as $v): ?>
-					<option value="<?php echo $v->id ?>"><?php echo $v->name?></option>
-					<?php endforeach; ?>
-				</select>
-				</span>
+				<?php echo $form->field($model,'parent_id')->dropDownList($select,['class'=>'form-control']) ?>
 			</div>
 		</div>
 		
@@ -57,4 +57,6 @@ use yii\helpers\Html;
 	<?php ActiveForm::end() ?>
 </div>
 </div>
+
 <!--包含头部文件-->
+

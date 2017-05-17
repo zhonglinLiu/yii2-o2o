@@ -51,7 +51,6 @@ class HuiAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         '\yii\web\JqueryAsset'
     ]; 
-
     public $jsOptions = [
         
     ];
