@@ -5,10 +5,11 @@ use app\models\Category;
 use yii\data\Pagination;
 use app\Module\admin\controllers\CommonController;
 use Yii;
+use app\Module\service\responseHelper;
 class CategoryController extends CommonController{
 	public $layout = 'layout2';
 	protected $actions=[
-		'index','add','edit','order'
+		'index','add','edit','order','listorder'
 	];
      protected $except=[];
 	public function actionIndex(){
@@ -17,8 +18,9 @@ class CategoryController extends CommonController{
 			$pid = 0;
 		}
 		$connection = Yii::$app->db;
-		$count = $connection->createCommand('select count(*) from {{%category}} where status<>-1 and parent_id='.$pid)->queryOne();
-		$count = current($count);
+		// $count = $connection->createCommand('select count(*) from {{%category}} where status<>-1 and parent_id='.$pid)->queryOne();
+		$count = Category::find()->where('status<>-1 and parent_id='.$pid)->count();
+		// $count = current($count);
 		$pageSize = Yii::$app->params['pageSize']['category'];
 		$pager = new Pagination(['totalCount'=>$count,'pageSize'=>$pageSize]);
 		$cates = Category::find()->where('status<>-1 and parent_id='.$pid)->orderby('listorder desc')->limit($pager->limit)->offset($pager->offset)->all();
@@ -81,13 +83,16 @@ class CategoryController extends CommonController{
 
 	public function actionListorder(){
 		if(Yii::$app->request->isAjax){
+			// Yii::$app->response->format = Response::FORMAT_JSON;
 			$post = Yii::$app->request->post();
 			$model = Category::find()->where('id=:id',[':id'=>$post['id']])->one();
 			$model->listorder = $post['listorder'];
 			if($model->save()){
-				return \yii\helpers\Myhelper::result(1,'修改成功');
+				return responseHelper::responseJson(1,'修改成功');
+				// return ['code'=>1,'data'=>'修改成功'];
 			}
-			return yii\helpers\Myhelper::result(-1,'修改失败');
+			// return ['code'=>-1,'data'=>'修改失败'];
+			return responseHelper::responseJson(1,'修改失败');
 		}
 	}
 

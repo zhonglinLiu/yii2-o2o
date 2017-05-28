@@ -1,6 +1,8 @@
 <?php 
 namespace app\models;
 use yii\db\ActiveRecord;
+use yii\validators\EmailValidator ;
+use app\models\Citys;
 class Bis extends ActiveRecord{
 	public static function tableName(){
 		return "{{%bis}}";
@@ -21,4 +23,20 @@ class Bis extends ActiveRecord{
 			[['description','city_path','money','listorder','status','create_time','update_time'],'safe']
 		];
 	}
+
+	public function getBisById($id){
+		return self::findOne($id);
+	}
+
+	public function getSeCitys(){
+		$city_path = explode(',',$this->city_path);
+		$se_city_id = isset($city_path[1]) ?$city_path[1]:'';
+		$se_city = Citys::find()->select(['name','id'])->where('id=:id',[':id'=>$se_city_id])->one();
+		return $se_city;
+	}
+
+	public function changeStatus($id,$status){
+		return $this->updateAll(['status'=>$status],'id=:id',[':id'=>$id]);
+	}
+	
 }

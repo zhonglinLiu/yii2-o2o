@@ -4,7 +4,7 @@ use yii\web\Controller;
 use app\models\User;
 use yii\data\Pagination;
 use Yii;
-use yii\web\Response;
+use app\Module\service\responseHelper;
 class UserController extends CommonController{
 	public $layout = 'layout2';
 	protected $actions=[
@@ -46,25 +46,23 @@ class UserController extends CommonController{
 
 	public function actionEdit(){
 		if(Yii::$app->request->isPost){
-			Yii::$app->response->format = Response::FORMAT_JSON;
 			$post = Yii::$app->request->post();
+			// var_dump($post);exit;
 			$model = new User;
 			$model->scenario = 'adminEdit';
 			$model->setAttributes($post);
-			$model->setAttribute('id',$post['id']);
+			// $model->setAttribute('id',$post['id']);
 			if($model->validate()){
-				var_dump(3);
 				$code = range(10000,999999);
 				$post['code'] = $code;
 				$post['password'] = md5($post['password'].$code);
-				var_dump(2);
 				$rel = User::updateAll($post,'id=:id',[':id'=>intval($post['id'])]);
 				if($rel){
-					return ['code'=>1,'data'=>'修改成功'];
+					return responseHelper::responseJson(1,'修改成功');
 				}
-				return ['code'=>-1,'data'=>'修改失败'];
+				return responseHelper::responseJson(-1,'修改失败');
 			}else{
-				return ['code'=>-1,'data'=>$model->getErrors()];
+				return responseHelper::responseJson(-1,$model->getErrors());
 			}
 			return;
 		}

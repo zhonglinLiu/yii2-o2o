@@ -39,7 +39,7 @@ class FeaturedController extends CommonController{
 				}
 				return ['code'=>-1,'添加失败'];
 			}else{
-				return ['code'=>-1,$featuredmodel->getErrors()];
+				return ['code'=>-1,'data'=>$featuredmodel->getErrors()];
 			}
 		}
 		$featured_type = Yii::$app->params['featured_type'];

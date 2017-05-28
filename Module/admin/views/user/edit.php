@@ -51,12 +51,6 @@ use yii\helpers\Url;
 <!--包含头部文件-->
 <?php $this->beginBlock('viewJs'); ?>
 <script type="text/javascript">
-	
-	$('.repass').blur(function(){
-		if(this.value!=$('.password').val()){
-			dialog.tip('密码与确认密码不一致',this);
-		}
-	})
 	var SCOPE = {
 		save_url:"<?php echo Url::to(['user/edit']) ?>",
 		jump_url:'',

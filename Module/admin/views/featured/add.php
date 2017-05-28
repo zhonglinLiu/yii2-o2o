@@ -57,7 +57,8 @@ use yii\helpers\Url;
 	</form>
 </article>
 
-
+<?php $this->registerJsFile('@web/js/image.js',['depends'=>'\yii\web\JqueryAsset']) ?>
+<?php $this->registerJsFile('@web/js/uploadify/jquery.uploadify.min.js',['depends'=>'\yii\web\JqueryAsset'])?>
 <?php $this->beginBlock('viewJs') ?>
 <script>
 var SCOPE = {

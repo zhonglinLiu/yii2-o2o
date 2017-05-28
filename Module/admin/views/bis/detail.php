@@ -23,7 +23,7 @@
 				</select>
 				</span>
             </div>
-            <?php if($flog == 1 ): ?>
+            <?php if(!empty($se_city->id) ): ?>
             <div class="formControls col-xs-8 col-sm-2">
 				<span class="select-box">
 
@@ -164,11 +164,12 @@
 </article>
 
 <!--包含尾部文件-->
-<?php $this->render('../layouts/footer.php') ?>
-<script type="text/javascript" src="assets/admin/hui/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="assets/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="assets/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+
+<?php $this->registerJsFile('@web/admin/hui/lib/ueditor/1.4.3/ueditor.config.js',['depend'=>'\yii\web\JqueryAsset']) ?>
+<?php $this->registerJsFile('@web/admin/hui/lib/ueditor/1.4.3/ueditor.all.min.js',['depend'=>'\yii\web\JqueryAsset']) ?>
+<?php $this->registerJsFile('@web/admin/hui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js',['depend'=>'\yii\web\JqueryAsset']) ?>
 <!--分配编辑器-->
+<?php $this->beginBlock('viewJs')?>
 <script>
     $(function(){
         var ue = UE.getEditor('editor');
@@ -184,5 +185,6 @@
         showmap:'<?php echo yii\helpers\Url::to(['api/BisAccount/showmap']) ?>',
     }
 </script>
+<?php $this->endBlock() ?>
 </body>
 </html>

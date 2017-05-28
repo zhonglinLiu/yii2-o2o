@@ -28,6 +28,10 @@ class BisAccount extends ActiveRecord implements \yii\web\IdentityInterface {
 		];
 	}
 
+	public function changeStatusByBid($bis_id,$status){
+		$this->updateAll(['status'=>$status],'bis_id=:id and is_main=1',[':id'=>$bis_id]);
+	}
+
 	public function getUser(){
 		return $this->find()->where('username=:uname',[':uname'=>$this->username])->one();
 	}

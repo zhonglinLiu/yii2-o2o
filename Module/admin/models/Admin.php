@@ -3,11 +3,12 @@ namespace app\Module\admin\models;
 use yii\db\ActiveRecord;
 class Admin extends ActiveRecord implements \yii\web\IdentityInterface{
 	public $admin = null;
+	public $verifyCode;
 	public static function  tabelName(){
 		return "{{%admin}}";
 	}
 
-	public function behavoirs(){
+	public function actions(){
 		[
 			[
 				'class'=>\yii\behaviors\TimestampBehavior::className(),

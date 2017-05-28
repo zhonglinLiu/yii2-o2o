@@ -3,6 +3,7 @@ namespace app\models;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use app\models\Bis;
+use app\models\Category;
 class BisLocation extends ActiveRecord{
 	public static function tableName(){
 		return '{{%bis_location}}';
@@ -43,5 +44,17 @@ class BisLocation extends ActiveRecord{
 
 	public function getBis(){
 		return $this->hasOne(Bis::className(),['id'=>'bis_id']);
+	}
+
+	public function get_se_category(){
+		$se_categoryids = explode(',',$this->category_path);
+		if(isset($se_categoryids[$this->category_id])) unset($se_categoryids[$this->category_id]);
+		$categorys = Category::findAll($se_categoryids);
+		return $categorys;
+
+	}
+
+	public function changeStatusByBid($bis_id,$status){
+		$this->updateAll(['status'=>$status],'bis_id=:id and is_main=1',[':id'=>$bis_id]);
 	}
 }

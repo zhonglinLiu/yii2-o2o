@@ -53,4 +53,4 @@ use app\common\components\statusWidget;
 </div>
 </div>
 <!--包含头部文件-->
-<?php echo $this->render('../layouts/footer.php') ?>
+

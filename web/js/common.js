@@ -238,6 +238,7 @@ $('#liu-submit2').click(function () {
 	var url = SCOPE.save_url;
 	var index = dialog.loading('请稍等');
     $.post(url,data,function (d) {
+    	console.log(d);
     	dialog.closed(index);
 		if(d.code!=1){
 			if(typeof d.data == 'object'){
@@ -248,7 +249,6 @@ $('#liu-submit2').click(function () {
 				}
 				return true;
 			}else{
-
 				dialog.error(d.data);
 			}
 			// 
