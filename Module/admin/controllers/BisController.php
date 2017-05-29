@@ -43,6 +43,7 @@ class BisController extends CommonController{
 		$se_cates = $location->get_se_category();
 		return $this->render('detail',['bis'=>$bis,'se_city'=>$se_city,'citys'=>$citys,'location'=>$location,'cates'=>$cates,'account'=>$bis_account,'se_cates'=>$se_cates]);
 	}
+	
 	public function actionStatus(){
 		$data = Yii::$app->request->get();
 		$status = intval($data['status']);
@@ -64,13 +65,9 @@ class BisController extends CommonController{
             }
 			$transaction->commit();
 			$this->redirect($_SERVER['HTTP_REFERER']);
-			$transaction->commit();
-			$this->redirect($_SERVER['HTTP_REFERER']);
 		} catch (\Exception $e) {
 			return $this->render('/index/error',['msg'=>'修改失败']);
 			$transaction->rollBack();
 		}
-
-
 	}
 }

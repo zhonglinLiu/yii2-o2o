@@ -18,9 +18,7 @@ class CategoryController extends CommonController{
 			$pid = 0;
 		}
 		$connection = Yii::$app->db;
-		// $count = $connection->createCommand('select count(*) from {{%category}} where status<>-1 and parent_id='.$pid)->queryOne();
 		$count = Category::find()->where('status<>-1 and parent_id='.$pid)->count();
-		// $count = current($count);
 		$pageSize = Yii::$app->params['pageSize']['category'];
 		$pager = new Pagination(['totalCount'=>$count,'pageSize'=>$pageSize]);
 		$cates = Category::find()->where('status<>-1 and parent_id='.$pid)->orderby('listorder desc')->limit($pager->limit)->offset($pager->offset)->all();
@@ -34,79 +32,50 @@ class CategoryController extends CommonController{
 		$model = new Category(['scenario'=>'add']);
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
-			$model->parent_id = intval($post['parent_id']);
-			$model->name = $post['name'];
-			$model->status = 1;
-			if($model->validate()){
-				if($model->save()){
-					Yii::$app->session->setFlash('info','添加成功');
-				}else{
-					Yii::$app->session->setFlash('info','添加失败');
-				}
+			if($model->addCategory($post)){
+				Yii::$app->session->setFlash('info','添加成功');
 			}else{
 				Yii::$app->session->setFlash('info','添加失败');
 			}
 			
 		}
-		$cates = $model->getTopCates();
-		$select = [];
-		$select[0] = '分类';
-		foreach ($cates as $value) {
-			$select[$value->id] = $value->name;
-		}
+
+		$select = $model->buildList();
 		return $this->render('add',['model'=>$model,'select'=>$select]);
 	}
 
 	public function actionEdit(){
-
-		
+		$categoryModel = new Category(['scenario'=>'add']);
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
-			$cate = Category::find()->where('id=:id',[':id'=>$post['id']])->one();
-			$cate->parent_id = $post['parent_id'];
-			$cate->name=$post['name'];
-			if($cate->save()){
+			if($categoryModel->editById($post)){
 				Yii::$app->session->setFlash('info','修改成功');
 			}else{
 				Yii::$app->session->setFlash('info','修改失败');
 			}
 		}else{
 			$id = Yii::$app->request->get('id');
-			$cate = Category::find()->where('id=:id',[':id'=>$id])->one();
+			$categoryModel = $categoryModel->find()->where('id=:id',[':id'=>$id])->one();
+			$categoryModel->scenario = 'add';
 		}
-		$model = new Category;
 		
-		$cates = $model->getTopCates();
+		$select = $categoryModel->buildList();
+
 		
-		return $this->render('edit',['cates'=>$cates,'cate'=>$cate]);
+		return $this->render('edit',['select'=>$select,'model'=>$categoryModel]);
 	}
 
 	public function actionListorder(){
 		if(Yii::$app->request->isAjax){
-			// Yii::$app->response->format = Response::FORMAT_JSON;
 			$post = Yii::$app->request->post();
 			$model = Category::find()->where('id=:id',[':id'=>$post['id']])->one();
 			$model->listorder = $post['listorder'];
 			if($model->save()){
 				return responseHelper::responseJson(1,'修改成功');
-				// return ['code'=>1,'data'=>'修改成功'];
 			}
-			// return ['code'=>-1,'data'=>'修改失败'];
 			return responseHelper::responseJson(1,'修改失败');
 		}
 	}
 
-	/*public function actionStatus(){
-		$status = Yii::$app->request->get('status');
-		$id = Yii::$app->request->get('id');
-		if(is_null($status) || is_null($id)){
-			return $this->render('index/error',['msg'=>'修改失败']);
-		}
-		$rel = Category::updateAll(['status'=>intval($status)],'id=:id',[':id'=>$id]);
-		if(!$rel){
-			return $this->render('index/error',['msg'=>'修改失败']);
-		}
-		return $this->redirect($_SERVER['HTTP_REFERER']);
-
-	}*/
+	
 }

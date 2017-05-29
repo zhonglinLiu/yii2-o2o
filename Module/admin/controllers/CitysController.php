@@ -24,14 +24,7 @@ class CitysController extends CommonController{
 		return $this->render('index',['citys'=>$citys,'pager'=>$pager]);
 	}
 
-	/*public function actionStatus(){
-		$city = Yii::$app->request->get();
-		$rel = Citys::updateAll(['status'=>intval($city['status'])],'id=:id',[':id'=>intval($city['id'])]);
-		if(empty($rel)){
-			$this->render('index/error',['msg'=>'修改失败']);
-		}
-		$this->redirect(Yii::$app->request->getReferrer());
-	}*/
+	
 
 	public function actionAdd(){
 		$model = new Citys(['scenario'=>'add']);

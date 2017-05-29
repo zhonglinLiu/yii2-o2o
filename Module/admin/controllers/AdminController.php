@@ -3,7 +3,6 @@ namespace app\Module\admin\controllers;
 use yii\web\Controller;
 use Yii;
 use app\Module\admin\models\Admin;
-use yii\web\Response;
 use app\Module\service\responseHelper;
 class AdminController extends CommonController{
 	public $layout = 'layout2';

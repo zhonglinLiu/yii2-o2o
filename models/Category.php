@@ -11,7 +11,7 @@ class Category extends ActiveRecord{
 			['name','required','message'=>'名称不能为空','on'=>['add']],
 			['parent_id','required','message'=>'参数非法','on'=>['add']],
 			['parent_id','number','message'=>'参数非法','on'=>['add']],
-			['parent_id','compare','compareAttribute'=>0,'operator'=>'>','message'=>'分类错误','on'=>['add']],
+			['parent_id','compare','compareValue'=>0,'operator'=>'>','message'=>'分类错误','on'=>['add']],
 			[['status'],'safe']
 		];
 	}
@@ -32,6 +32,40 @@ class Category extends ActiveRecord{
 		];
 		$order = 'listorder desc';
 		return $this->find()->where($data)->orderby($order)->limit($limit)->all();
+	}
+
+	public function addCategory($data){
+		$this->setAttributes($post);
+		if($this->validate() && $this->save(false)){
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * [buildList 返回的数据供dropDownList使用]
+	 * @return [type] [description]
+	 */
+	public function buildList($pid = null){
+		$select = [];
+		if(is_null($pid)){
+			$cates = $this->getTopCates();
+		}else{
+			$cates = $this->getCatesByPid($pid);
+		}
+		$select[0] = '分类';
+		foreach ($cates as $value) {
+			$select[$value->id] = $value->name;
+		}
+		return $select;
+	}
+
+	public function editById($data){
+		$this->setAttributes($data);
+		if($this->validate() && $this->save()){
+			return true;
+		}
+		return false;
 	}
 
 
