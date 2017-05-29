@@ -60,12 +60,8 @@ class Category extends ActiveRecord{
 		return $select;
 	}
 
-	public function editById($data){
-		$this->setAttributes($data);
-		if($this->validate() && $this->save()){
-			return true;
-		}
-		return false;
+	public function editById($id,$data){
+		return $this->updateAll($data,'id=:id',[':id'=>$id]);
 	}
 
 

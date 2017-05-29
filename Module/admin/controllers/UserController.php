@@ -74,19 +74,7 @@ class UserController extends CommonController{
 		return $this->render('edit',['user'=>$user]);
 	}
 
-	/*public function actionStatus(){
-		if(Yii::$app->request->isAjax){
-			Yii::$app->response->format = Response::FORMAT_JSON;
-			$data = Yii::$app->request->post();
-			$rel = User::updateAll(['status'=>intval($data['status'])],'id=:id',[':id'=>intval($data['id'])]);
-			if(!$rel){
-				return ['code'=>-1,'msg'=>'修改状态失败'];
-			}
-			return ['code'=>1,'msg','修改状态成功'];
-		}
-		
-
-	}*/
+	
 	public function actionDetail(){
 		
 	}

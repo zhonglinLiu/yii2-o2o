@@ -31,42 +31,34 @@ class CitysController extends CommonController{
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
 			$post['Citys']['status'] = 1;
-			$model->load($post);
-			if($model->validate()){
-				$model->save(false);
+			if($model->add($post)){
 				Yii::$app->session->setFlash('info','添加成功');
 			}else{
 				Yii::$app->session->setFlash('info','添加失败');
 			}
+			
 		}
-		$citys = $model->getTopCitys();
-		$select[0] = '分类';
-		foreach ($citys as $value) {
-			$select[$value->id] = $value->name;
-		}
+		
+		$select = $model->buildList();
 		return $this->render('add',['model'=>$model,'select'=>$select]);
 	}
 
 	public function actionEdit(){
+		$model = new Citys(['scenario'=>'edit']);
 		if(Yii::$app->request->isPost){
-			$post = Yii::$app->request->post();
-			$id = $post['Citys']['id'];
-			$city = Citys::find()->where('id=:id',[':id'=>$id])->one();
-			$city->scenario = 'add';
-			$city->load($post);
-			if($city->validate()){
-				if($city->save()){
-					Yii::$app->session->setFlash('info','修改成功');
-				}else{
-					Yii::$app->session->setFlash('info','修改失败');
-				}
+			$post = Yii::$app->request->post('Citys');
+			if($model->editById($post['id'],$post)){
+				Yii::$app->session->setFlash('info','修改成功');
+			}else{
+				Yii::$app->session->setFlash('info','修改失败');
 			}
 		}else{
 			$id = Yii::$app->request->get('id');
-			$city = Citys::find()->where('id=:id',[':id'=>$id])->one();
+			$model = $model->findOne($id);
+			$model->scenario = 'edit';
 		}
-		$citys = $city->getTopCitys();
-		return $this->render('edit',['citys'=>$citys,'model'=>$city]);
+		$select = $model->buildList();
+		return $this->render('edit',['select'=>$select,'model'=>$model]);
 	}
 	
 }

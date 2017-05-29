@@ -47,8 +47,8 @@ class CategoryController extends CommonController{
 	public function actionEdit(){
 		$categoryModel = new Category(['scenario'=>'add']);
 		if(Yii::$app->request->isPost){
-			$post = Yii::$app->request->post();
-			if($categoryModel->editById($post)){
+			$post = Yii::$app->request->post('Category');
+			if($categoryModel->editById($post['id'],$post)){
 				Yii::$app->session->setFlash('info','修改成功');
 			}else{
 				Yii::$app->session->setFlash('info','修改失败');

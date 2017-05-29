@@ -47,7 +47,7 @@ use yii\helpers\Html;
 				<?php echo $form->field($model,'parent_id')->dropDownList($select,['class'=>'form-control']) ?>
 			</div>
 		</div>
-		
+		<?php echo  $form->field($model,'id')->hiddenInput() ?>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
 				<?php echo Html::submitButton('<i class="Hui-iconfont">&#xe632;</i> 保存',['class'=>'btn btn-primary radius']) ?>
