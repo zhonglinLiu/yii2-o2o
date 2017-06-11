@@ -47,11 +47,9 @@ class UserController extends CommonController{
 	public function actionEdit(){
 		if(Yii::$app->request->isPost){
 			$post = Yii::$app->request->post();
-			// var_dump($post);exit;
 			$model = new User;
 			$model->scenario = 'adminEdit';
 			$model->setAttributes($post);
-			// $model->setAttribute('id',$post['id']);
 			if($model->validate()){
 				$code = range(10000,999999);
 				$post['code'] = $code;

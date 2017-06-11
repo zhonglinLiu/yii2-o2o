@@ -76,6 +76,8 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface{
            
     }
 
+   
+
     public function attributeLabels(){
         return [
             'username'=>'用户名',
@@ -92,11 +94,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface{
     public function getId(){
         return $this->id;
     }
-     public function getAuthKey(){
+    public function getAuthKey(){
 
-     }
-     public function validateAuthKey($authKey){
-        
-     }
+    }
+    public function validateAuthKey($authKey){
+
+    }
    
 }

@@ -9,3 +9,7 @@ modules:
       - Asserts
       - Yii2:
             part: [orm, email]
+      - DB:
+            dsn: 'mysql:host=localhost;dbname=mooc_o2o'
+            user: 'root'
+            password: '123456'

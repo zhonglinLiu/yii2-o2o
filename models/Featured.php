@@ -44,4 +44,9 @@ class Featured extends ActiveRecord{
 		$order = 'listorder desc';
 		return $this->find()->where($data)->orderby($order)->limit($limit)->all();
 	}
+
+	public function add($data){
+		$this->setAttributes($data);
+		return $this->save();
+	}
 }

@@ -20,7 +20,6 @@ class LoginFormTest extends \Codeception\Test\Unit
             'username' => 'not_existing_username',
             'password' => 'not_existing_password',
         ]);
-
         expect_not($this->model->login());
         expect_that(\Yii::$app->user->isGuest);
     }

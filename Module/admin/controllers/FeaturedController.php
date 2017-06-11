@@ -5,6 +5,7 @@ use app\models\Featured;
 use yii\data\Pagination;
 use Yii;
 use yii\web\Response;
+use app\Module\service\responseHelper;
 class FeaturedController extends CommonController{
 	public $layout = 'layout2';
 	protected $actions=[
@@ -27,19 +28,17 @@ class FeaturedController extends CommonController{
 
 	public function actionAdd(){
 		$request = Yii::$app->request;
+		$featuredmodel = new Featured(['scenario'=>'add']);
 		if($request->isPost){
-			Yii::$app->response->format = Response::FORMAT_JSON;
 			$data = $request->post();
-			$featuredmodel = new Featured;
-			$featuredmodel->scenario = 'add';
-			$featuredmodel->setAttributes($data);
-			if($featuredmodel->validate()){
-				if($featuredmodel->save(false)){
-					return ['code'=>1,'添加成功'];
-				}
-				return ['code'=>-1,'添加失败'];
+			if($featuredmodel->add($data)){
+				return responseHelper::responseJson(1,'添加成功');
 			}else{
-				return ['code'=>-1,'data'=>$featuredmodel->getErrors()];
+				if($featuredmodel->hasErrors()){
+					return responseHelper::responseJson(-1,$featuredmodel->getErrors());
+				}else{
+					return responseHelper::responseJson(-1,'添加失败');
+				}
 			}
 		}
 		$featured_type = Yii::$app->params['featured_type'];

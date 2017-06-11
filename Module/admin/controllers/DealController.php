@@ -30,5 +30,4 @@ class DealController extends CommonController{
 		return '待开发...';
 	}
 
-
 }

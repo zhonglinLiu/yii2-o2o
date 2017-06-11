@@ -25,8 +25,18 @@ class AdminController extends CommonController{
                         'offset'=>4,        //设置字符偏移量 有效果
                         //'controller'=>'login',        //拥有这个动作的controller
                 ],
+               
 		];
 	}
+	/*public function beforeAction($action){
+		//获取模块实例
+		// $m = \app\Module\admin\index::getInstance();
+		//获取test组件
+		// var_dump($m->test);
+		parent::beforeAction($action);
+		return true;
+	}*/
+	
 	public function actionLogin(){
 		$model = new Admin(['scenario'=>'login']);
 		if(Yii::$app->request->isPost){
